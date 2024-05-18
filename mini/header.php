@@ -1,16 +1,18 @@
 <nav class="navbar navbar-expand-lg py-3 px-3 pe-4 p-lg-0">
-  <div class="container-fluid p-lg-0">
+  <div class="container-fluid p-lg-0 d-flex">
 
-    <div class="d-flex flex-column justify-content-between align-items-center left-nav-buttons fixed-top rounded-4 m-4" style="max-width: 370px;">
+    <div class="d-flex flex-column justify-content-between align-items-center left-nav-buttons fixed-top rounded-4 m-4 flex-shrink-1" style="max-width: fit-content;">
 
-      <div class="d-flex flex-row g-0 w-100">
+      <div class="d-flex flex-row g-0 w-100 align-items-center justify-content-between">
         <button class="menu-button border-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#menuCollapse" aria-expanded="false" aria-controls="menuCollapse">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" id="menu-collapse-icon">
             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
           </svg>
         </button>
+        <p class="nav-logo px-3 d-flex align-items-center m-0">Tairāwhiti Uncovered.</p>
+      
         
-        <p class="nav-logo p-0 pe-3 ps-2 d-flex align-items-center m-0">Unhidden Tairāwhiti</p>
+
       </div>
       <div class="collapse menu-box-main flex-grow-1" id="menuCollapse">
         <div class="pt-3">

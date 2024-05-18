@@ -30,6 +30,24 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "dm_serif";
+  src: url("../fonts/dm_serif.ttf");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "anonymous-pro";
+  src: url("../fonts/anonymous-pro.ttf");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "spacemono";
+  src: url("../fonts/SpaceMono-Regular.ttf");
+  font-display: swap;
+}
+
 .bg-main {background-color: var(--main)!important;}
 .bg-dark {background-color: var(--dark)!important;}
 .bg-grey {background-color: var(--grey)!important;}
@@ -84,8 +102,8 @@
 
 .nav-logo {
   font-size: 2rem!important;
-  font-weight: 400;
-  font-family: dm_sans;
+  font-weight: 200;
+  font-family: dm_serif;
   color: black!important;
 }
 
@@ -168,6 +186,86 @@ a {
 .menu-main-button:hover .menu-main-button-rect {
   width: 60%; /* Width grows to 50% on hover */
   transition: width 0.35s ease;
+}
+
+.create-marker-btn {
+  font-family: dm_sans;
+  font-size: 14px;
+  background: none;
+  transition: all 0.33s;
+  position: relative; /* Ensure relative positioning for the parent */
+  z-index: 0; /* Set the z-index context */
+}
+
+.create-marker-btn::after {
+  content: '';
+  position: absolute; /* Correctly position the pseudo-element */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(170, 210, 223, 0.7) 25%, rgba(170, 210, 223, 0.7) 75%, rgba(255,255,255,0) 100%);
+  z-index: -1; /* Ensure it is behind the content */
+  transition: opacity 0.33s ease;
+  opacity: 0;
+}
+
+.create-marker-btn:hover::after {
+  opacity: 1; /* Apply the hover effect to the parent element */
+}
+
+.area-selector-coords {
+  font-family: spacemono;
+  white-space: nowrap;
+  width: fit-content;
+  overflow: visible;
+}
+
+.marker-card div .leaflet-popup-content {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  border-radius: 12px;
+}
+
+.marker-card .leaflet-popup-content-wrapper {
+  margin: 0px;
+  padding: 0px;
+}
+
+.marker-card .leaflet-popup-close-button {
+  background: rgba(255, 255, 255, 0.85)!important;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+.leaflet-popup-close-button:hover {
+  background: rgba(255, 255, 255, 0.5)!important;
+  transition: all 0.33s;
+}
+
+.marker-card .leaflet-popup-close-button span {
+  position: absolute;
+      top: -1px; /* Adjust as needed */
+      left: 25%; /* Adjust as needed */
+}
+
+.card-img-top {
+  border-radius: 12px 12px 0 0;
+}
+
+.marker-card-content {
+  z-index: 0;
+  font-family: dm_sans;
+}
+
+.marker-card-bottom {
+  border-radius: 0 0 12px 12px!important;
+}
+
+.card-title {
+  font-family: dm_serif;
+  font-size: 1.6rem;
 }
 
 @media only screen and (max-width: 576px) {
