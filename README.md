@@ -7,9 +7,7 @@ Welcome to **Tairāwhiti Uncovered**, your comprehensive guide to exploring the 
 1. [Introduction](#introduction)
 2. [Features](#features)
 3. [Getting Started](#getting-started)
-4. [Contributing](#contributing)
-5. [License](#license)
-6. [Contact](#contact)
+4. [To-Do](#To-Do)
 
 ## Introduction
 
@@ -31,13 +29,10 @@ To start exploring Tairāwhiti:
 2. **Navigate the Map:** Use the interactive map to find points of interest.
 3. **Learn and Explore:** Click on points of interest for more information and start your journey.
 
-## Contributing
+## To-Do
 
-We welcome contributions from the community! If you have a favorite spot or a local business you want to highlight, please:
-
-1. **Sign Up:** Create an account on our website.
-2. **Submit a Point of Interest:** Use the submission form to add new locations to the map.
-3. **Suggest Features:** Have ideas for new features or improvements? Let us know!
-
+Custom Icons
+Wiki Pages
+And More.....
 
 Thank you for being a part of the Tairāwhiti Uncovered community. Happy exploring!

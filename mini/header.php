@@ -44,11 +44,6 @@
       </div>
       <script>
 
-        document.getElementById('newMarkerLink').addEventListener('click', function (e) {
-          console.log('clicked!');
-          
-        });
-
         const myCollapsible = document.getElementById('menuCollapse');
         const menuCollapseIcon = document.getElementById('menu-collapse-icon');
 
