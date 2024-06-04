@@ -10,9 +10,6 @@
           </svg>
         </button>
         <p class="nav-logo px-3 d-flex align-items-center m-0">Tairāwhiti Uncovered.</p>
-      
-        
-
       </div>
       <div class="collapse menu-box-main flex-grow-1" id="menuCollapse">
         <div class="pt-3">
@@ -49,7 +46,7 @@
 
         myCollapsible.addEventListener('show.bs.collapse', event => {
           menuCollapseIcon.style.transform = 'rotate(90deg)';
-          menuCollapseIcon.style.backgroundColor = 'hsl(194, 45%, 77%)';
+          menuCollapseIcon.style.backgroundColor = '#42CAFD';
         });
 
         myCollapsible.addEventListener('hide.bs.collapse', event => {

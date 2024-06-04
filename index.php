@@ -110,7 +110,7 @@
         `;
 
         // Create a new popup
-        var popup = L.popup({minWidth: 160})
+        var popup = L.popup({minWidth: 160, className: 'mapclick-popup'})
           .setLatLng(e.latlng)
           .setContent(popupContent)
           .openOn(map);

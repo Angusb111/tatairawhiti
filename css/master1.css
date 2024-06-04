@@ -5,6 +5,7 @@
   --button: #20252d;
   --green: #198754;
   --grey: rgb(173, 209, 158);
+  --sky-blue: #42CAFD;
 }
 
 .blue-accent {
@@ -176,7 +177,7 @@ a {
 }
 
 .menu-main-button-rect {
-  background-color: hsl(194, 45%, 77%);
+  background-color: var(--sky-blue);
   height: 4px;
   width: 0%;
   transition: width 0.35s ease;
@@ -226,6 +227,11 @@ a {
   padding: 0px;
   display: flex;
   border-radius: 12px;
+}
+
+.mapclick-popup div .leaflet-popup-content {
+    margin: 0px;
+  padding: 0px;
 }
 
 .marker-card .leaflet-popup-content-wrapper {
