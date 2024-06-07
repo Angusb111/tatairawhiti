@@ -229,11 +229,6 @@ a {
   border-radius: 12px;
 }
 
-.mapclick-popup div .leaflet-popup-content {
-    margin: 0px;
-  padding: 0px;
-}
-
 .marker-card .leaflet-popup-content-wrapper {
   margin: 0px;
   padding: 0px;
@@ -277,58 +272,24 @@ a {
   font-size: 1.6rem;
 }
 
+.nav-bar {
+  max-width: fit-content;
+  border-radius: 1rem;
+}
+
 @media only screen and (max-width: 576px) {
 
-  .mobile-nav-link {
-    min-width: 40%;
+  .nav-bar {
+    max-width:100%;
+    border-radius: 0;
+  }
+  
+  .mobile-header-spacer {
+    min-width: 40px;
   }
 
-  .modal-dialog {
+  .menu-button {
     margin: 0;
+    margin-left: 4px;
   }
-
-  .collections-link {
-    font-size: 0.9rem!important;
-  }
-
-  .backdrop {
-    width: 100%;
-    max-width: 100%;
-    padding: 0px!important;
-  }
-
-  .stuff {
-    padding-top:0;
-    margin-top: -8px;
-  }
-
-  .collections-item {
-    z-index: 0;
-    height: auto;
-    width: 100%;
-    font-size: 1.4em;
-    font-weight: lighter;
-    transition: all 0.3s;
-    
-  }
-
-  .collections-image {
-    height: auto;
-    width: 100%;
-    
-  }
-
-  .gallery-item {
-    height: auto;
-    width: 100%;
-    padding-top: 8px;
-    border: none;
-  }
-
-  .gallery-image {
-    padding: 0px;
-    height: 100%;
-    width: 100%;
-  }
-
 }
