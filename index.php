@@ -21,26 +21,47 @@
     <!-- Modal -->
     <div class="modal modal-xl fade" id="createMarkerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-frame d-flex">
-        <div class="modal-dialog">
-          <div class="modal-content rounded-4 border-0">
-            <div class="modal-body">
+        <div class="modal-dialog modal-dialog-createplace">
+          <div class="modal-content rounded-4 border-0 modal-content-createplace">
+            <div class="modal-body modal-body-createplace">
               <div class="w-100 d-flex flex-direction-row justify-content-end">
                 <button type="button" class="btn-close m-2" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="create-form pt-5 mt-5" id="">
+              <div class="create-form pt-0 pt-md-5 mt-md-5" id="">
                 <p class="page-heading">Create New Place</p>
                 <div class="line-break"></div>
-                <div class="d-flex flex-direction-row my-5">
+                <div class="d-flex flex-column my-4">
                   <p class="form-heading">Place Name</p>
                   <input type="text" class="form-control" id="PlaceNameInput" placeholder="Enter place name">
                 </div>
-                <div class="d-flex flex-direction-row my-5">
+                <div class="d-flex flex-column my-4">
                   <p class="form-heading">Description</p>
                   <textarea class="form-control" id="PlaceDescriptionInput" name="description" rows="3" required></textarea>
                 </div>
-                <div class="d-flex flex-direction-row my-5">
+                <div class="d-flex flex-column my-4 form-row-category">
                   <p class="form-heading">Category</p>
-                  <p>Thing</p>
+                  <div class="d-flex flex-row category-selector-row">
+                    <div class="d-flex flex-column align-items-center px-5 py-4 border rounded category-selector-item ">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-tree mt-2" viewBox="0 0 16 16">
+                        <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777zM6.437 4.758A.5.5 0 0 0 6 4.5h-.066L8 1.401 10.066 4.5H10a.5.5 0 0 0-.424.765L11.598 8.5H11.5a.5.5 0 0 0-.447.724L12.69 12.5H3.309l1.638-3.276A.5.5 0 0 0 4.5 8.5h-.098l2.022-3.235a.5.5 0 0 0 .013-.507"/>
+                      </svg>
+                      <p class="m-0 mt-1">Nature</p>
+                    </div>
+                    <div class="d-flex flex-column align-items-center px-5 py-4 border rounded category-selector-item ">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-tree mt-2" viewBox="0 0 16 16">
+                      <g id="layer1" transform="matrix(0.18633051,0,0,0.18632812,-1.3165219,-178.69338)" style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:5.37529374;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:round">
+                        <path d="m 49.999999,962.7787 c 0,0 -10.793917,8.35041 -10.416667,12.49999 v 45.83331 h -8.333333 c -2.308375,0 -4.166667,1.8583 -4.166667,4.1666 v 8.3334 h -4.166666 c -2.308292,0 -4.166667,1.8583 -4.166667,4.1666 v 4.1667 H 81.25 v -4.1667 c 0,-2.3083 -1.858376,-4.1666 -4.166667,-4.1666 h -4.166667 v -8.3334 c 0,-2.3083 -1.858292,-4.1666 -4.166667,-4.1666 h -8.333333 v -45.83331 c 0,-4.16666 -10.416667,-12.49999 -10.416667,-12.49999 z" id="path11719" style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:none;fill-opacity:1;stroke:#000000;stroke-width:5.37529374;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate;stroke-linejoin:round" />
+                      </g>
+                      </svg>
+                      <p class="m-0 mt-1">Monument</p>
+                    </div>
+                    <div class="d-flex flex-column align-items-center px-5 py-4 border rounded category-selector-item ">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                        <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
+                      </svg>
+                      <p class="m-0 mt-1">Historic Site</p>
+                    </div>
+                  </div>
                 </div>
                 <input type="hidden" id="PlaceLatitudeInput">
                 <input type="hidden" id="PlaceLongitudeInput">

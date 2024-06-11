@@ -85,7 +85,7 @@
 
 .page-heading {
   font-family: dm_sans;
-  font-size: 3.2rem;
+  font-size: 3rem;
 }
 
 .form-heading {
@@ -277,11 +277,26 @@ a {
   border-radius: 1rem;
 }
 
+.category-selector-item {
+  background-color: white;
+  font-family: dm_sans;
+  font-size: 13px;
+  transition: all 0.33s;
+  text-align: center;
+  margin: 5px;
+}
+
+.category-selector-item:hover {
+  background-color: rgba(172, 172, 172, 0.3);
+  
+}
+
 @media only screen and (max-width: 576px) {
 
   .nav-bar {
     max-width:100%;
     border-radius: 0;
+    max-height: 100%;
   }
   
   .mobile-header-spacer {
@@ -291,5 +306,52 @@ a {
   .menu-button {
     margin: 0;
     margin-left: 4px;
+  }
+  
+  .menu-box-inner {
+    height: 100vh;
+  }
+
+  .modal-content-createplace {
+    margin: 0;
+    border-radius: 0%!important;
+    background-color: #fdfcfc!important;
+  }
+
+  .modal-dialog-createplace {
+    margin: 0;
+  }
+
+  .modal-body-createplace {
+    padding: 0;
+  }
+
+  .create-form {
+    padding: 20px;
+  }
+
+  .page-heading {
+    font-size: 2rem;
+  }
+
+  .form-heading {
+    width: auto;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+
+  .category-selector-row {
+    overflow-x: scroll;
+    max-width: calc(100vw - 40px);
+  }
+
+  .form-row-category {
+    overflow-x: scroll;
+    max-width: calc(100vw - 40px);
+  }
+
+  .category-selector-item {
+    max-width: 160px;
+    min-width: 160px;
   }
 }
