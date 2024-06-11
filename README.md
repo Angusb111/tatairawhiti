@@ -1,38 +1,33 @@
 # Tairāwhiti Uncovered
 
-Welcome to **Tairāwhiti Uncovered**, your comprehensive guide to exploring the beautiful Tairāwhiti region. Our mission is to encourage locals and visitors alike to discover the hidden gems and points of interest throughout Tairāwhiti.
-
-## Table of Contents
-
-1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Getting Started](#getting-started)
-4. [To-Do](#To-Do)
-
-## Introduction
-
-Tairāwhiti Uncovered is a locally made and run website that presents a detailed map with various points of interest. Whether you're looking for scenic spots, historical landmarks, or local businesses, our goal is to make it easy and fun to explore the region.
+Tairawhiti Uncovered is a web application designed to help locals and tourists explore the hidden gems of the Tairawhiti region. The platform allows users to discover and share points of interest, providing a crowd-sourced map of unique locations to explore.
 
 ## Features
 
-- **Interactive Map:** Explore Tairāwhiti with our easy-to-use, interactive map.
-- **Points of Interest:** Discover various points of interest including natural attractions, cultural sites, and local businesses.
-- **User Contributions:** Add your own favorite spots and share them with the community.
-- **Events Calendar:** Stay updated with local events and happenings.
-- **Search Functionality:** Find specific locations or types of activities quickly.
+- **Crowd-Sourced Knowledge**: Users can submit points of interest to share with others in the region.
+- **Map Integration**: Utilizes OpenStreetMap through Leaflet for interactive mapping.
+- **Moderation**: Submissions are moderated to ensure quality and relevance.
+- **Future Enhancements**: Planned features include user authentication and improved feedback mechanisms.
+
+## Technology Stack
+
+- **Frontend**: HTML, CSS, JavaScript (Bootstrap for styling)
+- **Backend**: PHP
+- **Database**: MySQL
+- **Map Integration**: Leaflet with OpenStreetMap
 
 ## Getting Started
 
-To start exploring Tairāwhiti:
+To get started with Tairawhiti Uncovered, simply visit [website link] and start exploring the hidden gems of Tairawhiti!
 
-1. **Visit our website:** [Tairāwhiti Uncovered](https://www.tairawhitiuncovered.com)
-2. **Navigate the Map:** Use the interactive map to find points of interest.
-3. **Learn and Explore:** Click on points of interest for more information and start your journey.
+## Contributing
 
-## To-Do
+While Tairawhiti Uncovered is not currently open source, there may be opportunities for community involvement in the future. Stay tuned for updates on how you can contribute to the project.
 
-Custom Icons
-Wiki Pages
-And More.....
+## Feedback
 
-Thank you for being a part of the Tairāwhiti Uncovered community. Happy exploring!
+We welcome your feedback! For now, you can submit feedback directly through the app. In future versions, it will be accessible through a dedicated menu option.
+
+## License
+
+This project is not currently open source and is maintained by [Your Name]. All rights reserved.
