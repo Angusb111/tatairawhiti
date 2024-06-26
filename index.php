@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta charset="utf-8">
     <title>Tairāwhiti Uncovered | Discover & Share Local Gems!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="css/master1.css">
     <link rel="icon" href="media/icon.svg">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
@@ -18,62 +19,135 @@
     <?php include 'mini/header.php'; ?>
     <div id="map"></div>
 
-    <!-- Modal -->
+    <!-- Modal for Creating a New Place -->
     <div class="modal modal-xl fade" id="createMarkerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-frame d-flex">
         <div class="modal-dialog modal-dialog-createplace">
           <div class="modal-content rounded-4 border-0 modal-content-createplace">
-            <div class="modal-body modal-body-createplace">
+            <div class="modal-body modal-body-createplace d-flex flex-column">
+              <!-- Close Button -->
               <div class="w-100 d-flex flex-direction-row justify-content-end">
                 <button type="button" class="btn-close m-2" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="create-form pt-0 pt-md-5 mt-md-5" id="">
-                <p class="page-heading">Create New Place</p>
-                <div class="line-break"></div>
-                <div class="d-flex flex-column my-4">
-                  <p class="form-heading">Place Name</p>
-                  <input type="text" class="form-control" id="PlaceNameInput" placeholder="Enter place name">
-                </div>
-                <div class="d-flex flex-column my-4">
-                  <p class="form-heading">Description</p>
-                  <textarea class="form-control" id="PlaceDescriptionInput" name="description" rows="3" required></textarea>
-                </div>
-                <div class="d-flex flex-column my-4 form-row-category">
-                  <p class="form-heading">Category</p>
-                  <div class="d-flex flex-row category-selector-row">
-                    <div class="d-flex flex-column align-items-center px-5 py-4 border rounded category-selector-item ">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-tree mt-2" viewBox="0 0 16 16">
-                        <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777zM6.437 4.758A.5.5 0 0 0 6 4.5h-.066L8 1.401 10.066 4.5H10a.5.5 0 0 0-.424.765L11.598 8.5H11.5a.5.5 0 0 0-.447.724L12.69 12.5H3.309l1.638-3.276A.5.5 0 0 0 4.5 8.5h-.098l2.022-3.235a.5.5 0 0 0 .013-.507"/>
-                      </svg>
-                      <p class="m-0 mt-1">Nature</p>
+              <!-- Form for Creating a New Place -->
+              <div class="d-flex justify-content-center create-form flex-grow-1 pt-0 ">
+
+                <!-- Section 1: Place Name -->
+                <div class="form-section active flex-column justify-content-center align-items-center text-center col-12 col-lg-6" id="section1">
+                  <div class="d-flex flex-column my-4 form-input-container">
+                    <p class="form-heading pb-3">Place Name</p>
+                    <input type="text" class="form-input text-center" id="PlaceNameInput" placeholder="Enter place name" required>
+                  </div>
+                  <button type="button" class="form-next-button py-4" id="nextToSection2">
+                    <div class="d-flex flex-direction-row align-items-center">
+                      Next
                     </div>
-                    <div class="d-flex flex-column align-items-center px-5 py-4 border rounded category-selector-item ">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-tree mt-2" viewBox="0 0 16 16">
-                      <g id="layer1" transform="matrix(0.18633051,0,0,0.18632812,-1.3165219,-178.69338)" style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:5.37529374;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:round">
-                        <path d="m 49.999999,962.7787 c 0,0 -10.793917,8.35041 -10.416667,12.49999 v 45.83331 h -8.333333 c -2.308375,0 -4.166667,1.8583 -4.166667,4.1666 v 8.3334 h -4.166666 c -2.308292,0 -4.166667,1.8583 -4.166667,4.1666 v 4.1667 H 81.25 v -4.1667 c 0,-2.3083 -1.858376,-4.1666 -4.166667,-4.1666 h -4.166667 v -8.3334 c 0,-2.3083 -1.858292,-4.1666 -4.166667,-4.1666 h -8.333333 v -45.83331 c 0,-4.16666 -10.416667,-12.49999 -10.416667,-12.49999 z" id="path11719" style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:none;fill-opacity:1;stroke:#000000;stroke-width:5.37529374;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate;stroke-linejoin:round" />
-                      </g>
-                      </svg>
-                      <p class="m-0 mt-1">Monument</p>
+                    <div class="form-next-button-rect"></div>
+                  </button>
+                </div>
+
+                <!-- Section 2: Description -->
+                <div class="form-section flex-column justify-content-center align-items-center text-center col-12 col-lg-6" id="section2">
+                  <div class="d-flex flex-column my-4 form-input-container">
+                    <p class="form-heading pb-3">Description</p>
+                    <textarea class="form-control text-center" id="PlaceDescriptionInput" name="description" rows="3" placeholder="Enter description" required></textarea>
+                  </div>
+                  <button type="button" class="form-next-button py-4" id="nextToSection3">
+                    <div class="d-flex flex-direction-row align-items-center">
+                      Next
                     </div>
-                    <div class="d-flex flex-column align-items-center px-5 py-4 border rounded category-selector-item ">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
-                        <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
-                      </svg>
-                      <p class="m-0 mt-1">Historic Site</p>
+                    <div class="form-next-button-rect"></div>
+                  </button>
+                </div>
+
+                <!-- Section 3: Category Selection -->
+                <div class="form-section flex-column justify-content-center align-items-center text-center col-12 col-lg-6" id="section3">
+                  <div class="d-flex flex-column my-4 form-input-container">
+                    <p class="form-heading pb-3">Category</p>
+                    <div class="d-flex flex-row category-selector-row justify-content-center">
+                      <!-- Nature Category -->
+                      <div class="d-flex flex-column align-items-center px-4 py-4 border rounded category-selector-item" data-category="1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-tree mt-2" viewBox="0 0 16 16">
+                          <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777zM6.437 4.758A.5.5 0 0 0 6 4.5h-.066L8 1.401 10.066 4.5H10a.5.5 0 0 0-.424.765L11.598 8.5H11.5a.5.5 0 0 0-.447.724L12.69 12.5H3.309l1.638-3.276A.5.5 0 0 0 4.5 8.5h-.098l2.022-3.235a.5.5 0 0 0 .013-.507"/>
+                        </svg>
+                        <p class="m-0 mt-1">Nature</p>
+                      </div>
+                      <!-- Monument Category -->
+                      <div class="d-flex flex-column align-items-center px-4 py-4 border rounded category-selector-item" data-category="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-tree mt-2" viewBox="0 0 16 16">
+                          <g id="layer1" transform="matrix(0.18633051,0,0,0.18632812,-1.3165219,-178.69338)" style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:5.37529374;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:round">
+                            <path d="m 49.999999,962.7787 c 0,0 -10.793917,8.35041 -10.416667,12.49999 v 45.83331 h -8.333333 c -2.308375,0 -4.166667,1.8583 -4.166667,4.1666 v 8.3334 h -4.166666 c -2.308292,0 -4.166667,1.8583 -4.166667,4.1666 v 4.1667 H 81.25 v -4.1667 c 0,-2.3083 -1.858376,-4.1666 -4.166667,-4.1666 h -4.166667 v -8.3334 c 0,-2.3083 -1.858292,-4.1666 -4.166667,-4.1666 h -8.333333 v -45.83331 c 0,-4.16666 -10.416667,-12.49999 -10.416667,-12.49999 z" id="path11719" style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:none;fill-opacity:1;stroke:#000000;stroke-width:5.37529374;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate;stroke-linejoin:round"/>
+                          </g>
+                        </svg>
+                        <p class="m-0 mt-1">Monument</p>
+                      </div>
+                      <!-- Historic Site Category -->
+                      <div class="d-flex flex-column align-items-center px-4 py-4 border rounded category-selector-item" data-category="0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-hourglass-split mt-2" viewBox="0 0 16 16">
+                          <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
+                        </svg>
+                        <p class="m-0 mt-1">Historic Site</p>
+                      </div>
                     </div>
                   </div>
+                  <button type="button" class="form-next-button py-4" id="savePlaceBtn">
+                    <div class="d-flex flex-direction-row align-items-center">
+                      Save changes
+                    </div>
+                    <div class="form-next-button-rect"></div>
+                  </button>
                 </div>
+
+                <!-- Hidden Inputs for Latitude and Longitude -->
                 <input type="hidden" id="PlaceLatitudeInput">
                 <input type="hidden" id="PlaceLongitudeInput">
+                
               </div>
             </div>
-            <div class="modal-footer border-0">
-              <button type="button" class="btn btn-sky" id="savePlaceBtn">Save changes</button>
+            <!-- Modal Footer -->
+            <div class="modal-footer border-0 p-0">
+                  <!-- No footer buttons, they are in the form sections -->
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
+    <script>
+      
+      $(document).ready(function () {
+        // Handle section transitions
+        $('#nextToSection2').click(function () {
+          $('#section1').removeClass('active').fadeOut(function () {
+            $('#section2').addClass('active').fadeIn();
+          });
+        });
+
+        $('#nextToSection3').click(function () {
+          $('#section2').removeClass('active').fadeOut(function () {
+            $('#section3').addClass('active').fadeIn();
+          });
+        });
+
+        // Handle category selection
+        $('.category-selector-item').click(function () {
+          $('.category-selector-item').removeClass('selected');
+          $(this).addClass('selected');
+          // Save the selected category to a hidden input or a variable if needed
+          var selectedCategory = $(this).data('category');
+          $('#selectedCategoryInput').val(selectedCategory);
+        });
+
+        // Handle form submission
+        $('#savePlaceBtn').click(function () {
+          // Save the form data here
+          alert('Place saved!');
+        });
+      });
+    </script>
+
+
     <?php
     // Connect to MySQL database
     $servername = "localhost";
@@ -101,10 +175,24 @@
     ?>
 
     <script>
-      var map = L.map('map', {zoomControl: false}).setView([-38.66398800969844, 178.0225992971014], 14);
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      // Enable tooltips
+      document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+      });
+    </script>
+
+    <script>
+      var map = L.map('map', {zoomControl: false}).setView([-38.66398800969844, 178.0225992971014], 13);
+      L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.{ext}', {
+        maxZoom: 20,
+        attribution: `
+        <button type="button" class="attribution-button" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title='&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
+          Attributions
+        </button>`,
+	      ext: 'jpg'
       }).addTo(map);
       var zoomControl = L.control.zoom({
         position: 'bottomleft'
@@ -137,41 +225,49 @@
           .openOn(map);
       });
 
-      // Handle form submission
-      $('#savePlaceBtn').on('click', function() {
-        var name = $('#PlaceNameInput').val();
-        var website = $('#PlaceWebsiteInput').val();
-        var lat = $('#PlaceLatitudeInput').val();
-        var lng = $('#PlaceLongitudeInput').val();
+// Handle category selection
+$('.category-selector-item').click(function () {
+  $('.category-selector-item').removeClass('selected');
+  $(this).addClass('selected');
+});
 
-        var formData = {
-          name: name,
-          website: website,
-          latitude: lat,
-          longitude: lng
-        };
+// Handle form submission
+$('#savePlaceBtn').click(function () {
+  // Collect form data
+  var placeName = $('#PlaceNameInput').val();
+  var description = $('#PlaceDescriptionInput').val();
+  var category = $('.category-selector-item.selected').data('category'); // Get the selected category
+  var latitude = $('#PlaceLatitudeInput').val();
+  var longitude = $('#PlaceLongitudeInput').val();
 
-        $.ajax({
-          type: 'POST',
-          url: 'scripts/insert_poi.php',
-          data: formData,
-          dataType: 'json',
-          success: function(response) {
-            if (response.success) {
-              console.log('POI added successfully!');
-              // Add the marker to the map
-              var marker = L.marker([lat, lng]).addTo(map);
-              marker.bindPopup(`<b>${name}</b><br><a href="${website}">More Info</a>`);
-              $('#createMarkerModal').modal('hide');
-            } else {
-              console.log('Error: ' + response.message);
-            }
-          },
-          error: function(xhr, status, error) {
-            console.log('AJAX error: ' + status + ' - ' + error);
-          }
-        });
-      });
+  // Perform AJAX request to save the form data
+  $.ajax({
+    url: 'scripts/insert_poi.php', // Replace with your server endpoint
+    method: 'POST',
+    data: {
+      latitude: latitude,
+      longitude: longitude,
+      name: placeName,
+      website: description, // Assuming 'website' in PHP is meant to be 'description' from the form
+      category: category // Add category to the data sent
+    },
+    success: function (response) {
+      // Handle success response
+      if (response.success) {
+        alert('Place saved successfully!');
+        // Optionally, close the modal or reset the form
+        $('#createMarkerModal').modal('hide');
+      } else {
+        alert('Error: ' + response.message);
+      }
+    },
+    error: function (error) {
+      // Handle error response
+      alert('Failed to save place. Please try again.');
+    }
+  });
+});
+
 
       // Pass the POI data from PHP to JavaScript
       var poiData = <?php echo json_encode($poiData); ?>;

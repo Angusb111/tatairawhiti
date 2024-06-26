@@ -20,17 +20,22 @@ $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
 $name = $_POST['name'];
 $website = $_POST['website'];
+$category = $_POST['category']; // Add category variable
 
 // Prepare and bind
-$stmt = $conn->prepare("INSERT INTO poi (latitude, longitude, name, website) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("ddss", $latitude, $longitude, $name, $website);
+$stmt = $conn->prepare("INSERT INTO poi (latitude, longitude, name, website, category) VALUES (?, ?, ?, ?, ?)");
+$stmt->bind_param("ddsds", $latitude, $longitude, $name, $website, $category);
 
+
+// Execute the prepared statement
 if ($stmt->execute()) {
   echo json_encode(["success" => true, "message" => "New record created successfully"]);
 } else {
+  // If there is an error, capture and return the error message
   echo json_encode(["success" => false, "message" => "Error: " . $stmt->error]);
 }
 
+// Close the statement and connection
 $stmt->close();
 $conn->close();
 ?>
