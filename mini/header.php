@@ -31,12 +31,12 @@
 
         myCollapsible.addEventListener('show.bs.collapse', event => {
           menuCollapseIcon.style.transform = 'rotate(90deg)';
-          menuCollapseIcon.style.backgroundColor = 'rgba(66, 202, 253, 0.5)';
+          menuCollapseIcon.style.border = '1px solid white';
         });
 
         myCollapsible.addEventListener('hide.bs.collapse', event => {
           menuCollapseIcon.style.transform = 'rotate(0deg)';
-          menuCollapseIcon.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+          menuCollapseIcon.style.border = 'none';
         });
       </script>
     </div>

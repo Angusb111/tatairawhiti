@@ -185,15 +185,40 @@
     </script>
 
     <script>
-      var map = L.map('map', {zoomControl: false}).setView([-38.66398800969844, 178.0225992971014], 13);
-      L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.{ext}', {
-        maxZoom: 20,
+      var map = L.map('map', {
+        zoomControl: false,
+        zoomDelta: 2,
+        minZoom: 9,   // Minimum zoom level
+        maxZoom: 17,  // Maximum zoom level
+        maxBounds: L.latLngBounds([[-39.3, 177.0], [-37.5, 178.9]])
+      }).setView([-38.66398800969844, 178.0225992971014], 13);
+
+      // Function to handle mouse wheel zoom
+      function handleMouseWheel(event) {
+        var delta = Math.sign(event.deltaY); // Determine scroll direction
+        var zoom = map.getZoom();
+        if (delta > 0) {
+          map.setZoom(zoom - 2); // Zoom out by 2 levels
+        } else {
+          map.setZoom(zoom + 2); // Zoom in by 2 levels
+        }
+
+        // Prevent default scroll behavior
+        event.preventDefault();
+      }
+
+      var mapContainer = document.getElementById('map');
+      mapContainer.addEventListener('wheel', handleMouseWheel);
+
+      L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg', {
+      //L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        maxZoom: 18,
         attribution: `
         <button type="button" class="attribution-button" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title='&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
           Attributions
-        </button>`,
-	      ext: 'jpg'
+        </button>`
       }).addTo(map);
+
       var zoomControl = L.control.zoom({
         position: 'bottomleft'
       }).addTo(map);
