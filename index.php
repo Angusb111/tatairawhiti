@@ -182,9 +182,14 @@
           return new bootstrap.Tooltip(tooltipTriggerEl)
         })
       });
-    </script>
 
-    <script>
+      function setInitialBackdropColor() {
+        var savedBackdrop = localStorage.getItem('backdrop');
+        if (savedBackdrop) {
+          $('.leaflet-container').css('background-color', savedBackdrop);
+        }
+      }
+
       var map = L.map('map', {
         zoomControl: false,
         zoomDelta: 2,
@@ -210,13 +215,19 @@
       var mapContainer = document.getElementById('map');
       mapContainer.addEventListener('wheel', handleMouseWheel);
 
-      L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg', {
-      //L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+      // Initialize mapLayer in localStorage if not already set
+      if (!localStorage.getItem('mapLayer')) {
+        localStorage.setItem('mapLayer', 'https://tile.openstreetmap.org/{z}/{x}/{y}.png');
+        localStorage.setItem('backdrop', '#aad3df');
+      }
+
+      // Create the tile layer from localStorage
+      var currentLayer = L.tileLayer(localStorage.getItem('mapLayer'), {
         maxZoom: 18,
         attribution: `
-        <button type="button" class="attribution-button" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title='&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
-          Attributions
-        </button>`
+          <button type="button" class="attribution-button" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title='&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
+            Attributions
+          </button>`
       }).addTo(map);
 
       var zoomControl = L.control.zoom({
@@ -228,18 +239,17 @@
         $('#PlaceLongitudeInput').val(lng);
         $('#createMarkerModal').modal('show');
       }
+
       // Add click event listener to the map
       map.on('click', function(e) {
-
-        // Get the coordinates where the user clicked
         var lat = e.latlng.lat;
         var lng = e.latlng.lng;
 
         // Create a popup with a form
         var popupContent = `
-          <div class="d-flex flex-column area-selector-popup" >
+          <div class="d-flex flex-column area-selector-popup">
             <p class="p-2 m-0 area-selector-coords flex-grow-1">${lat.toFixed(4)}, ${lng.toFixed(4)}</p>
-            <button class=" p-2 border-0 border-top w-100 create-marker-btn" onClick="buttonClick(${lat.toFixed(6)}, ${lng.toFixed(6)});">Create Marker</button>
+            <button class="p-2 border-0 border-top w-100 create-marker-btn" onClick="buttonClick(${lat.toFixed(6)}, ${lng.toFixed(6)});">Create Marker</button>
           </div>
         `;
 
@@ -250,82 +260,82 @@
           .openOn(map);
       });
 
-// Handle category selection
-$('.category-selector-item').click(function () {
-  $('.category-selector-item').removeClass('selected');
-  $(this).addClass('selected');
-});
+      // Handle category selection
+      $('.category-selector-item').click(function () {
+        $('.category-selector-item').removeClass('selected');
+        $(this).addClass('selected');
+      });
 
-// Handle form submission
-$('#savePlaceBtn').click(function () {
-  // Collect form data
-  var placeName = $('#PlaceNameInput').val();
-  var description = $('#PlaceDescriptionInput').val();
-  var category = $('.category-selector-item.selected').data('category'); // Get the selected category
-  var latitude = $('#PlaceLatitudeInput').val();
-  var longitude = $('#PlaceLongitudeInput').val();
+      // Handle form submission
+      $('#savePlaceBtn').click(function () {
+        // Collect form data
+        var placeName = $('#PlaceNameInput').val();
+        var description = $('#PlaceDescriptionInput').val();
+        var category = $('.category-selector-item.selected').data('category'); // Get the selected category
+        var latitude = $('#PlaceLatitudeInput').val();
+        var longitude = $('#PlaceLongitudeInput').val();
 
-  // Perform AJAX request to save the form data
-  $.ajax({
-    url: 'scripts/insert_poi.php', // Replace with your server endpoint
-    method: 'POST',
-    data: {
-      latitude: latitude,
-      longitude: longitude,
-      name: placeName,
-      website: description, // Assuming 'website' in PHP is meant to be 'description' from the form
-      category: category // Add category to the data sent
-    },
-    success: function (response) {
-      // Handle success response
-      if (response.success) {
-        alert('Place saved successfully!');
-        // Optionally, close the modal or reset the form
-        $('#createMarkerModal').modal('hide');
-      } else {
-        alert('Error: ' + response.message);
-      }
-    },
-    error: function (error) {
-      // Handle error response
-      alert('Failed to save place. Please try again.');
-    }
-  });
-});
-
+        // Perform AJAX request to save the form data
+        $.ajax({
+          url: 'scripts/insert_poi.php', // Replace with your server endpoint
+          method: 'POST',
+          data: {
+            latitude: latitude,
+            longitude: longitude,
+            name: placeName,
+            website: description, // Assuming 'website' in PHP is meant to be 'description' from the form
+            category: category // Add category to the data sent
+          },
+          success: function (response) {
+            // Handle success response
+            if (response.success) {
+              alert('Place saved successfully!');
+              // Optionally, close the modal or reset the form
+              $('#createMarkerModal').modal('hide');
+            } else {
+              alert('Error: ' + response.message);
+            }
+          },
+          error: function (error) {
+            // Handle error response
+            alert('Failed to save place. Please try again.');
+          }
+        });
+      });
 
       // Pass the POI data from PHP to JavaScript
       var poiData = <?php echo json_encode($poiData); ?>;
       var nature_icon = L.icon({
-          iconUrl: 'media/nature-marker.png',
-          shadowUrl: 'media/shadow.png',
-          iconSize: [34, 50],
-          iconAnchor: [17, 50],
-          popupAnchor: [0, 0],
-          shadowSize:   [34, 40],
-          shadowAnchor: [2, 35]
-        });
-        var monument_icon = L.icon({
-          iconUrl: 'media/monument-marker.png',
-          shadowUrl: 'media/shadow.png',
-          iconSize: [34, 50],
-          iconAnchor: [17, 50],
-          popupAnchor: [0, 0],
-          shadowSize:   [34, 40],
-          shadowAnchor: [2, 35]
-        });
-        var historical_icon = L.icon({
-          iconUrl: 'media/historical-marker.png',
-          shadowUrl: 'media/shadow.png',
-          iconSize: [34, 50],
-          iconAnchor: [17, 50],
-          popupAnchor: [0, 0],
-          shadowSize:   [34, 40],
-          shadowAnchor: [2, 35]
-        });
+        iconUrl: 'media/nature-marker.png',
+        shadowUrl: 'media/shadow.png',
+        iconSize: [34, 50],
+        iconAnchor: [17, 50],
+        popupAnchor: [0, 0],
+        shadowSize: [34, 40],
+        shadowAnchor: [2, 35]
+      });
+      var monument_icon = L.icon({
+        iconUrl: 'media/monument-marker.png',
+        shadowUrl: 'media/shadow.png',
+        iconSize: [34, 50],
+        iconAnchor: [17, 50],
+        popupAnchor: [0, 0],
+        shadowSize: [34, 40],
+        shadowAnchor: [2, 35]
+      });
+      var historical_icon = L.icon({
+        iconUrl: 'media/historical-marker.png',
+        shadowUrl: 'media/shadow.png',
+        iconSize: [34, 50],
+        iconAnchor: [17, 50],
+        popupAnchor: [0, 0],
+        shadowSize: [34, 40],
+        shadowAnchor: [2, 35]
+      });
+
       // Add markers to the map
       poiData.forEach(function(poi) {
-
+        var markerIcon;
         if (poi.category == 0) {
           markerIcon = historical_icon;
         } else if (poi.category == 1) {
@@ -360,7 +370,45 @@ $('#savePlaceBtn').click(function () {
         `;
         marker.bindPopup(popupContent, {className: 'marker-card'});
       });
+
+      function switchMapLayer(newLayerUrl) {
+        // Remove the current layer
+        map.removeLayer(currentLayer);
+        
+        // Add the new layer
+        currentLayer = L.tileLayer(newLayerUrl, {
+          maxZoom: 18,
+          attribution: `
+            <button type="button" class="attribution-button" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title='&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
+              Attributions
+            </button>`
+        }).addTo(map);
+      }
+
+      function toggleLayerString() {
+        if (localStorage.getItem('mapLayer') == 'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg') {
+          newBackdrop = '#aad3df';
+          return 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+        } else {
+          newBackdrop = '#010a1b';
+          return 'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg';
+        }
+      }
+
+      // Handle layer toggle button click
+      $('#toggleMapLayerButton').click(function () {
+        var newLayerUrl = toggleLayerString();
+        localStorage.setItem('mapLayer', newLayerUrl);
+        localStorage.setItem('backdrop', newBackdrop);
+        switchMapLayer(newLayerUrl);
+        $('.leaflet-container').css('background-color', newBackdrop);
+      });
+
+      $(document).ready(function() {
+        setInitialBackdropColor();
+      });
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   </body>
 </html>
