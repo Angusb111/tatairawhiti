@@ -6,8 +6,6 @@ Tairawhiti Uncovered is a web application designed to help locals and tourists e
 
 - **Crowd-Sourced Knowledge**: Users can submit points of interest to share with others in the region.
 - **Map Integration**: Utilizes OpenStreetMap through Leaflet for interactive mapping.
-- **Moderation**: Submissions are moderated to ensure quality and relevance.
-- **Future Enhancements**: Planned features include user authentication and improved feedback mechanisms.
 
 ## Technology Stack
 
@@ -20,9 +18,11 @@ Tairawhiti Uncovered is a web application designed to help locals and tourists e
 
 To get started with Tairawhiti Uncovered, simply visit [website link] and start exploring the hidden gems of Tairawhiti!
 
-## Contributing
+## Up-Next
 
-While Tairawhiti Uncovered is not currently open source, there may be opportunities for community involvement in the future. Stay tuned for updates on how you can contribute to the project.
+- **Image Submission**
+- **Dark mode / Light Mode**
+- **Wiki Pages?**
 
 ## Feedback
 
