@@ -190,6 +190,32 @@
         }
       }
 
+      function toggleButtonMap() {
+        $('#toggleMapLayerButton').removeClass('satellite-switch').addClass('chart-switch');
+        $('#layerToggleText').text('Map Mode');
+        localStorage.setItem('mapState', 'chart');
+      }
+
+      function toggleButtonSat() {
+        $('#toggleMapLayerButton').removeClass('chart-switch').addClass('satellite-switch');
+        $('#layerToggleText').text('Sattelite Mode');
+        localStorage.setItem('mapState', 'satellite');
+      }
+
+      function initToggleButton() {
+        var savedMapState = localStorage.getItem('mapState');
+        if (savedMapState) {
+          if (savedMapState == 'chart') {
+            toggleButtonMap();
+          } else {
+            toggleButtonSat();
+          }
+        } else {
+          localStorage.setItem('mapState', 'chart');
+          initToggleButton();
+        }
+      }
+
       var map = L.map('map', {
         zoomControl: false,
         zoomDelta: 2,
@@ -368,7 +394,12 @@
             </div>
           </div>
         `;
-        marker.bindPopup(popupContent, {className: 'marker-card'});
+        marker.bindPopup(popupContent, {
+            className: 'marker-card',
+            autoPan: true,
+            autoPanPaddingTopLeft: L.point(20, 60),
+            autoPanPaddingBottomRight: L.point(20, 20)
+        });
       });
 
       function switchMapLayer(newLayerUrl) {
@@ -395,17 +426,27 @@
         }
       }
 
+      function changeButton() {
+        if ($('#toggleMapLayerButton').hasClass('satellite-switch')) {
+          toggleButtonMap();
+        } else {
+          toggleButtonSat();
+        }
+      }
+
       // Handle layer toggle button click
       $('#toggleMapLayerButton').click(function () {
         var newLayerUrl = toggleLayerString();
         localStorage.setItem('mapLayer', newLayerUrl);
         localStorage.setItem('backdrop', newBackdrop);
         switchMapLayer(newLayerUrl);
+        changeButton();
         $('.leaflet-container').css('background-color', newBackdrop);
       });
 
       $(document).ready(function() {
         setInitialBackdropColor();
+        initToggleButton();
       });
     </script>
 
