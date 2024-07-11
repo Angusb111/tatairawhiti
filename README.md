@@ -14,10 +14,6 @@ Tairawhiti Uncovered is a web application designed to help locals and tourists e
 - **Database**: MySQL
 - **Map Integration**: Leaflet with OpenStreetMap
 
-## Getting Started
-
-To get started with Tairawhiti Uncovered, simply visit [website link] and start exploring the hidden gems of Tairawhiti!
-
 ## Up-Next
 
 - **Image Submission**
@@ -26,8 +22,4 @@ To get started with Tairawhiti Uncovered, simply visit [website link] and start 
 
 ## Feedback
 
-We welcome your feedback! For now, you can submit feedback directly through the app. In future versions, it will be accessible through a dedicated menu option.
-
-## License
-
-This project is not currently open source and is maintained by [Your Name]. All rights reserved.
+For now, you cannot submit feedback. In future versions, it will be accessible through a dedicated menu option.
