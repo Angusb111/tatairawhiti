@@ -19,6 +19,58 @@
     <?php include 'mini/header.php'; ?>
     <div id="map"></div>
 
+    <!-- About Modal -->
+    <div class="modal modal-xl fade" id="aboutModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-frame d-flex">
+        <div class="modal-dialog modal-dialog-createplace">
+          <div class="modal-content rounded-4 border-0 modal-content-createplace">
+            <div class="modal-body modal-body-createplace d-flex flex-column">
+              <!-- Close Button -->
+              <div class="w-100 d-flex flex-direction-row justify-content-end">
+                <button type="button" class="btn-close m-2" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              
+              <div class="d-flex justify-content-center flex-grow-1 pt-0 ">
+                <h1>About this Project</h1>
+                <div class="content">
+                    <p>Tairāwhiti Uncovered is a web application designed to help locals and tourists explore the hidden gems of the Tairāwhiti region. Our platform allows users to discover and share points of interest, providing a crowd-sourced map of unique locations to explore.</p>
+                    
+                    <h2>Features</h2>
+                    <ul class="features-list">
+                        <li><strong>Crowd-Sourced Knowledge:</strong> Users can submit points of interest to share with others in the region.</li>
+                        <li><strong>Map Integration:</strong> Utilizes OpenStreetMap through Leaflet for interactive mapping.</li>
+                    </ul>
+                    
+                    <h2>Technology Stack</h2>
+                    <ul class="tech-stack-list">
+                        <li><strong>Frontend:</strong> HTML, CSS, JavaScript (Bootstrap for styling)</li>
+                        <li><strong>Backend:</strong> PHP</li>
+                        <li><strong>Database:</strong> MySQL</li>
+                        <li><strong>Map Integration:</strong> Leaflet with OpenStreetMap</li>
+                    </ul>
+                    
+                    <h2>Up-Next</h2>
+                    <p>We are constantly working to improve Tairāwhiti Uncovered. Here are some features we plan to add soon:</p>
+                    <ul class="features-list">
+                        <li>Image Submission</li>
+                        <li>Dark mode / Light Mode</li>
+                        <li>Wiki Pages?</li>
+                    </ul>
+                    
+                    <h2>Feedback</h2>
+                    <p>For now, you cannot submit feedback. In future versions, it will be accessible through a dedicated menu option.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer border-0 p-0">
+                  <!-- No footer buttons, they are in the form sections -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Modal for Creating a New Place -->
     <div class="modal modal-xl fade" id="createMarkerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-frame d-flex">
@@ -260,6 +312,10 @@
         position: 'bottomleft'
       }).addTo(map);
 
+      function aboutClick() {
+        $('#aboutModal').modal('show');
+      }
+
       function buttonClick(lat, lng) {
         $('#PlaceLatitudeInput').val(lat); // Insert coords into hidden form inputs
         $('#PlaceLongitudeInput').val(lng);
@@ -410,9 +466,9 @@
         currentLayer = L.tileLayer(newLayerUrl, {
           maxZoom: 18,
           attribution: `
-            <button type="button" class="attribution-button" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title='&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
-              Attributions
-            </button>`
+          <button type="button" class="attribution-button" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title='&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
+            Attributions
+          </button>`
         }).addTo(map);
       }
 
