@@ -66,11 +66,10 @@
 }
 
 .modal-content {
-  backdrop-filter: saturate(180%) blur(10px);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--light-panel);
+  backdrop-filter: blur(3px);
   box-shadow: rgba(0, 0, 0, 0.35) 4px 3px 4px;
   margin-left: 28px;
-  color: white;
 }
 
 .form-input {
@@ -82,23 +81,17 @@
 }
 
 .form-input:hover, .form-input:focus {
-  background-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: saturate(80%);
   transition: all 0.33s;
 }
 
-.input-wrapper {
+.form-input::after {
   position: relative;
-  display: inline-block;
-}
-
-.input-wrapper::after {
-  position: absolute;
-  right: 0px; /* Adjust as needed */
-  top: 100%; /* Adjust as needed */
-  transform: translateY(-100%);
-  pointer-events: none; /* Makes sure the text is not interactive */
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* Adjust the color and thickness as needed */
 }
 
 .modal-dialog {
@@ -111,12 +104,7 @@
 }
 
 .create-form {
-  padding: 0;
-  height: fit-content;
-}
-
-.modal-dialog-createplace {
-  height: fit-content;
+  padding: 0 100px;
 }
 
 .page-heading {
@@ -126,7 +114,7 @@
 
 .form-heading {
   width: 100%;
-  font-family: dm_serif;
+  font-family: dm_sans;
   font-size: 1.8rem;
   margin: 0;
 }
@@ -375,7 +363,6 @@ a {
 
 .form-section {
   display: none;
-  height: fit-content;
 }
 
 .form-section.active {
@@ -392,10 +379,6 @@ a {
   background: none;
   color: #0078A8;
   text-decoration: underline;
-}
-
-.dark-map {
-  filter: invert(120%) hue-rotate(190deg);
 }
 
 @media only screen and (max-width: 768px) {
@@ -431,7 +414,6 @@ a {
 
   .modal-dialog-createplace {
     margin: 0;
-    height: 100%;
   }
 
   .modal-body-createplace {
@@ -475,4 +457,31 @@ a {
     font-size: 1.5rem!important;
   }
 
+}
+
+.input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.input-wrapper::after {
+  content: "Some text";
+  position: absolute;
+  right: 10px; /* Adjust as needed */
+  top: 50%; /* Adjust as needed */
+  transform: translateY(-50%);
+  pointer-events: none; /* Makes sure the text is not interactive */
+  color: gray; /* Style as needed */
+}
+
+/* Ensure the input has focus styling */
+input:focus {
+  border-color: blue; /* Change as needed */
+  outline: none; /* Remove default outline */
+}
+
+/* Adjust pseudo-element when input is focused */
+input:focus + .input-wrapper::after {
+  content: "Focused!";
+  color: blue; /* Change as needed */
 }

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Tairāwhiti Uncovered | Discover & Share Local Gems!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/master1.css">
+    <link rel="stylesheet" href="css/master12.css">
     <link rel="icon" href="media/icon.svg">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
@@ -72,8 +72,8 @@
     </div>
 
     <!-- Modal for Creating a New Place -->
-    <div class="modal modal-md fade" id="createMarkerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-frame d-flex align-items-center">
+    <div class="modal modal-xl fade" id="createMarkerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-frame d-flex">
         <div class="modal-dialog modal-dialog-createplace">
           <div class="modal-content rounded-4 border-0 modal-content-createplace">
             <div class="modal-body modal-body-createplace d-flex flex-column">
@@ -89,8 +89,8 @@
                   <div class="d-flex flex-column my-4 form-input-container">
                     <p class="form-heading pb-3">Place Name</p>
                     <div class="input-wrapper">
-                      <input type="text" class="form-input text-center" id="PlaceNameInput" placeholder="Enter place name" required>
-                    </div>
+  <input type="text" id="myInput">
+</div>
                   </div>
                   <button type="button" class="form-next-button py-4" id="nextToSection2">
                     <div class="d-flex flex-direction-row align-items-center">
@@ -237,8 +237,38 @@
         })
       });
 
-      
+      function setInitialBackdropColor() {
+        var savedBackdrop = localStorage.getItem('backdrop');
+        if (savedBackdrop) {
+          $('.leaflet-container').css('background-color', savedBackdrop);
+        }
+      }
 
+      function toggleButtonMap() {
+        $('#toggleMapLayerButton').removeClass('satellite-switch').addClass('chart-switch');
+        $('#layerToggleText').text('Map Mode');
+        localStorage.setItem('mapState', 'chart');
+      }
+
+      function toggleButtonSat() {
+        $('#toggleMapLayerButton').removeClass('chart-switch').addClass('satellite-switch');
+        $('#layerToggleText').text('Sattelite Mode');
+        localStorage.setItem('mapState', 'satellite');
+      }
+
+      function initToggleButton() {
+        var savedMapState = localStorage.getItem('mapState');
+        if (savedMapState) {
+          if (savedMapState == 'chart') {
+            toggleButtonMap();
+          } else {
+            toggleButtonSat();
+          }
+        } else {
+          localStorage.setItem('mapState', 'chart');
+          initToggleButton();
+        }
+      }
 
       var map = L.map('map', {
         zoomControl: false,
@@ -248,15 +278,31 @@
         maxBounds: L.latLngBounds([[-39.3, 177.0], [-37.5, 178.9]])
       }).setView([-38.66398800969844, 178.0225992971014], 13);
 
-      var mapContainer = document.getElementById('map');
+      // Function to handle mouse wheel zoom
+      function handleMouseWheel(event) {
+        var delta = Math.sign(event.deltaY); // Determine scroll direction
+        var zoom = map.getZoom();
+        if (delta > 0) {
+          map.setZoom(zoom - 2); // Zoom out by 2 levels
+        } else {
+          map.setZoom(zoom + 2); // Zoom in by 2 levels
+        }
 
-      // Initialize colorTheme in localStorage if not already set
-      if (!localStorage.getItem('colorTheme')) {
-        localStorage.setItem('colorTheme', 'light');
+        // Prevent default scroll behavior
+        event.preventDefault();
+      }
+
+      var mapContainer = document.getElementById('map');
+      mapContainer.addEventListener('wheel', handleMouseWheel);
+
+      // Initialize mapLayer in localStorage if not already set
+      if (!localStorage.getItem('mapLayer')) {
+        localStorage.setItem('mapLayer', 'https://tile.openstreetmap.org/{z}/{x}/{y}.png');
+        localStorage.setItem('backdrop', '#aad3df');
       }
 
       // Create the tile layer from localStorage
-      var currentLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      var currentLayer = L.tileLayer(localStorage.getItem('mapLayer'), {
         maxZoom: 18,
         attribution: `
           <button type="button" class="attribution-button" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title='&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
@@ -428,60 +474,36 @@
         }).addTo(map);
       }
 
-      function toggleColorTheme() {
-        if (localStorage.getItem('colorTheme') == 'dark') {
-          return "light";
+      function toggleLayerString() {
+        if (localStorage.getItem('mapLayer') == 'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg') {
+          newBackdrop = '#aad3df';
+          return 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
         } else {
-          return "dark";
+          newBackdrop = '#010a1b';
+          return 'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg';
         }
       }
 
-      function changeColors(newTheme) {
-        if (newTheme == 'dark') {
-          $('.leaflet-container').css('background-color', '#000000');
-          $('.leaflet-tile-pane').addClass('dark-map');
+      function changeButton() {
+        if ($('#toggleMapLayerButton').hasClass('satellite-switch')) {
+          toggleButtonMap();
         } else {
-          $('.leaflet-container').css('background-color', '#aad3df');
-          $('.leaflet-tile-pane').removeClass('dark-map');
+          toggleButtonSat();
         }
-        
       }
 
       // Handle layer toggle button click
       $('#toggleMapLayerButton').click(function () {
-        newTheme = toggleColorTheme();
-        localStorage.setItem('colorTheme', newTheme);
-        setButton(newTheme);
-        changeColors(newTheme);
+        var newLayerUrl = toggleLayerString();
+        localStorage.setItem('mapLayer', newLayerUrl);
+        localStorage.setItem('backdrop', newBackdrop);
+        switchMapLayer(newLayerUrl);
+        changeButton();
+        $('.leaflet-container').css('background-color', newBackdrop);
       });
 
-      function setInitialColorTheme() {
-        var savedColorTheme = localStorage.getItem('colorTheme');
-        changeColors(savedColorTheme);
-      }
-
-      function setButton(newTheme) {
-        if (newTheme == 'dark') {
-          $('#toggleMapLayerButton').removeClass('light-switch').addClass('dark-switch');
-          $('#layerToggleText').text('Go To Light Mode');
-        } else {
-          $('#toggleMapLayerButton').removeClass('dark-switch').addClass('light-switch');
-          $('#layerToggleText').text('Go To Dark Mode');
-        }
-      }
-
-      function initToggleButton() {
-        var savedMapState = localStorage.getItem('colorTheme');
-        if (savedMapState) {
-          setButton(savedMapState);
-        } else {
-          localStorage.setItem('colorTheme', 'light');
-          initToggleButton();
-        }
-      }
-
       $(document).ready(function() {
-        setInitialColorTheme();
+        setInitialBackdropColor();
         initToggleButton();
       });
     </script>
