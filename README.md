@@ -19,6 +19,7 @@ Tairawhiti Uncovered is a web application designed to help locals and tourists e
 - **Image Submission**
 - **Dark mode / Light Mode**
 - **Wiki Pages?**
+- **Tags**
 
 ## Feedback
 
