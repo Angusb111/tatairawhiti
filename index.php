@@ -91,11 +91,10 @@
                   <input type="text" class="form-input text-center" id="PlaceNameInput" name="placeName" placeholder="Enter place name" required>
                 </div>
               </div>
-              <button type="button" class="form-next-button py-4" id="nextToSection2">
+              <button type="button" class="form-next-button" id="nextToSection2">
                 <div class="d-flex flex-direction-row align-items-center">
                   Next
                 </div>
-                <div class="form-next-button-rect"></div>
               </button>
             </div>
 
@@ -105,11 +104,10 @@
                 <p class="form-heading pb-3">Description</p>
                 <textarea class="form-control text-center" id="PlaceDescriptionInput" name="placeDescription" rows="3" placeholder="Enter description" required></textarea>
               </div>
-              <button type="button" class="form-next-button py-4" id="nextToSection3">
+              <button type="button" class="form-next-button" id="nextToSection3">
                 <div class="d-flex flex-direction-row align-items-center">
                   Next
                 </div>
-                <div class="form-next-button-rect"></div>
               </button>
             </div>
 
@@ -127,11 +125,12 @@
                   </div>
                   <!-- Monument Category -->
                   <div class="d-flex flex-column align-items-center px-4 py-4 border rounded category-selector-item" data-category="2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-tree mt-2" viewBox="0 0 16 16">
-                      <g id="layer1" transform="matrix(0.18633051,0,0,0.18632812,-1.3165219,-178.69338)" style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:5.37529374;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:round">
-                        <path d="m 49.999999,962.7787 c 0,0 -10.793917,8.35041 -10.416667,12.49999 v 45.83331 h -8.333333 c -2.308375,0 -4.166667,1.8583 -4.166667,4.1666 v 8.3334 h -4.166666 c -2.308292,0 -4.166667,1.8583 -4.166667,4.1666 v 4.1667 H 81.25 v -4.1667 c 0,-2.3083 -1.858376,-4.1666 -4.166667,-4.1666 h -4.166667 v -8.3334 c 0,-2.3083 -1.858292,-4.1666 -4.166667,-4.1666 h -8.333333 v -45.83331 c 0,-4.16666 -10.416667,-12.49999 -10.416667,-12.49999 z" id="path11719" style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:none;fill-opacity:1;stroke:#000000;stroke-width:5.37529374;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate;stroke-linejoin:round"/>
-                      </g>
-                    </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" stroke="currentColor" class="bi bi-tree mt-2" viewBox="0 0 16 16">
+                      <path d="m 49.999999,962.7787 c 0,0 -10.793917,8.35041 -10.416667,12.49999 v 45.83331 h -8.333333 c -2.308375,0 -4.166667,1.8583 -4.166667,4.1666 v 8.3334 h -4.166666 c -2.308292,0 -4.166667,1.8583 -4.166667,4.1666 v 4.1667 H 81.25 v -4.1667 c 0,-2.3083 -1.858376,-4.1666 -4.166667,-4.1666 h -4.166667 v -8.3334 c 0,-2.3083 -1.858292,-4.1666 -4.166667,-4.1666 h -8.333333 v -45.83331 c 0,-4.16666 -10.416667,-12.49999 -10.416667,-12.49999 z" 
+                            transform="matrix(0.18633051,0,0,0.18632812,-1.3165219,-178.69338)" 
+                            style="fill:none;fill-opacity:1;stroke-width:5.37529374;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:round"/>
+                  </svg>
+
                     <p class="m-0 mt-1">Monument</p>
                   </div>
                   <!-- Historic Site Category -->
@@ -143,11 +142,10 @@
                   </div>
                 </div>
               </div>
-              <button type="button" class="form-next-button py-4" id="nextToSection4">
+              <button type="button" class="form-next-button" id="nextToSection4">
                 <div class="d-flex flex-direction-row align-items-center">
                   Next
                 </div>
-                <div class="form-next-button-rect"></div>
               </button>
             </div>
 
@@ -159,11 +157,10 @@
                   <input type="file" class="form-input text-center" id="PlaceImageInput" name="placeImage" accept="image/*" required>
                 </div>
               </div>
-              <button type="submit" class="form-next-button py-4" id="savePlaceBtn">
+              <button type="submit" class="form-next-button" id="savePlaceBtn">
                 <div class="d-flex flex-direction-row align-items-center">
                   Save changes
                 </div>
-                <div class="form-next-button-rect"></div>
               </button>
             </div>
             <input type="hidden" id="PlaceLatitudeInput" name="latitude">
@@ -321,7 +318,7 @@
         var popupContent = `
           <div class="d-flex flex-column area-selector-popup">
             <p class="p-2 m-0 area-selector-coords flex-grow-1">${lat.toFixed(4)}, ${lng.toFixed(4)}</p>
-            <button class="p-2 border-0 border-top w-100 create-marker-btn" onClick="buttonClick(${lat.toFixed(6)}, ${lng.toFixed(6)});">Create Marker</button>
+            <button class="p-2 border-0 w-100 create-marker-btn" onClick="buttonClick(${lat.toFixed(6)}, ${lng.toFixed(6)});">Create Marker</button>
           </div>
         `;
 
@@ -387,7 +384,7 @@
               <p class="card-text">${poi.description}</p>
             </div>
             <div class="d-flex marker-card-bottom mb-1">
-              <a class="col-6 d-flex justify-content-center text-black border-end border-dark p-2" href="https://www.google.com/maps?q=${poi.latitude},${poi.longitude}">
+              <a class="col-6 d-flex justify-content-center text-black border-end p-2" href="https://www.google.com/maps?q=${poi.latitude},${poi.longitude}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google me-2" viewBox="0 0 16 16">
                   <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
                 </svg>
@@ -434,12 +431,16 @@
       }
 
       function changeColors(newTheme) {
-        if (newTheme == 'dark') {
+        if (newTheme == 'dark') { //darkmode
           $('.leaflet-container').css('background-color', '#000000');
           $('.leaflet-tile-pane').addClass('dark-map');
-        } else {
+          $('body').css('--background', '#181a25');
+          $('body').css('--text', 'white');
+        } else { //lightmode
           $('.leaflet-container').css('background-color', '#aad3df');
           $('.leaflet-tile-pane').removeClass('dark-map');
+          $('body').css('--background', 'white');
+          $('body').css('--text', 'black');
         }
         
       }
