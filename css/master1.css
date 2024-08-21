@@ -1,12 +1,12 @@
 :root {
   --main: #e6ddd3;  /*#;F2EBE3 */
   --dark: #F2EBE3;  /*#;094074 */
-  --text: #ffffff;
-  --background: #181a25;
-  --primary: #dbe2e9;
-  --secondary: #408df2;
-  --accent: #1332b2;
-
+  --text: rgb(255, 255, 255);
+  --background: rgb(255, 250, 250);
+  --primary: rgb(219, 226, 233);
+  --secondary: rgb(64, 141, 242);
+  --accent: rgb(19, 50, 178);
+  --color: rgb(170, 211, 223);
 }
 
 .blue-accent {
@@ -65,11 +65,10 @@
 }
 
 .modal-content {
-  backdrop-filter: saturate(180%) blur(10px);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--background);
   box-shadow: rgba(0, 0, 0, 0.35) 4px 3px 4px;
   margin-left: 28px;
-  color: white;
+  color: var(--text);
 }
 
 .form-input {
@@ -116,7 +115,14 @@
 }
 
 .modal-dialog-createplace {
-  height: fit-content;
+  height: 100%;
+  max-width: 100vw!important;
+  margin: 0;
+}
+
+.modal-content-createplace {
+  margin: 0;
+  border-radius: 0%!important;
 }
 
 .page-heading {
@@ -141,7 +147,6 @@
   font-size: 2rem!important;
   font-weight: 200;
   font-family: dm_serif;
-  color: white!important;
 }
 
 body {
@@ -170,19 +175,22 @@ body {
 
 .left-nav-buttons {
   /* background: rgba(255, 255, 255, 0.1); */
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
+  background: var(--background);
+  color: var(--text);
   box-shadow: rgba(0, 0, 0, 0.35) 4px 3px 4px;
 }
 
 .menu-button {
   background-color: rgba(0, 0, 0, 0);
+  color: var(--text);
   margin: 8px;
-  transition: all 0.33s;
+  transition: transform 0.33s;
 }
 
 #menu-collapse-icon {
-  transition: all 0.35s ease;
+  transition: 
+    transform 0.35s ease, /* Transform transition */
+    color 0.7s ease;      /* Color transition */
   border-radius: 50%;
   padding: 6px;
 }
@@ -206,9 +214,9 @@ a {
   width: 100%;
   padding: 15px;
   font-family: dm_sans;
-  color: white;
+  color: var(--text);
   border-radius:1rem;
-  transition: all 0.35s ease;
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -301,7 +309,8 @@ a {
 }
 
 .marker-card .leaflet-popup-close-button {
-  background: rgba(255, 255, 255, 0.8)!important;
+  background: var(--background)!important;
+  opacity: 80%;
   margin: 5px;
   width: 32px!important;
   height: 32px!important;
@@ -322,8 +331,13 @@ a {
   vertical-align: middle;
 }
 
+.leaflet-popup-tip {
+  background-color: var(--background)!important;
+  border: 1px solid var(--secondary);
+}
+
 .leaflet-popup-close-button:hover {
-  background: rgba(255, 255, 255, 0.3)!important;
+  opacity: 40%;
   transition: all 0.33s;
 }
 
@@ -340,7 +354,7 @@ a {
 .marker-card-content {
   z-index: 0;
   font-family: dm_sans;
-  border: 1px solid var(--text);
+  border: 1px solid var(--secondary);
   border-radius: 12px;
 }
 
@@ -376,6 +390,7 @@ a {
 .form-section {
   display: none;
   height: fit-content;
+  border: 1px solid magenta;
 }
 
 .form-section.active {
@@ -387,16 +402,77 @@ a {
   background-color: #e7f1ff;
 }
 
+.leaflet-control-attribution {
+  background: var(--background)!important;
+}
+
 .attribution-button {
   border: none;
   background: none;
-  color: #0078A8;
+  color: var(--secondary);
   text-decoration: underline;
+}
+
+.leaflet-control-zoom a {
+  background-color: var(--background)!important;
+  color: var(--text)!important;
 }
 
 .dark-map {
   filter: invert(120%) hue-rotate(190deg);
 }
+
+/* Style only the switch input elements */
+.switch {
+  position: relative;
+  width: 60px;
+  height: 25px!important;
+}
+
+.switch-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background);
+  border: 2px solid var(--text);
+  transition: background-color 0.4s;
+  border-radius: 0.3rem;
+}
+
+.slider:before {
+  position: absolute;
+  content: "|";
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+  width: 24px;
+  left: -1px;
+  bottom: -1px;
+  background-color: var(--background);
+  border: 2px solid var(--text);
+  border-width: 2px!important;
+  transition: transform 0.33s;
+  border-radius: 0.3rem;
+}
+
+.switch-input:checked + .slider {
+  background-color: var(--accent);
+}
+
+.switch-input:checked + .slider:before {
+  transform: translateX(36px);
+}
+
 
 @media only screen and (max-width: 768px) {
 
@@ -426,7 +502,6 @@ a {
   .modal-content-createplace {
     margin: 0;
     border-radius: 0%!important;
-    background-color: #fdfcfc!important;
   }
 
   .modal-dialog-createplace {

@@ -71,7 +71,7 @@
       </div>
     </div>
 
-<div class="modal modal-md fade" id="createMarkerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createMarkerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-frame d-flex align-items-center">
     <div class="modal-dialog modal-dialog-createplace">
       <div class="modal-content rounded-4 border-0 modal-content-createplace">
@@ -81,7 +81,7 @@
             <button type="button" class="btn-close m-2" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <!-- Form for Creating a New Place -->
-          <form action="scripts/upload.php" method="post" enctype="multipart/form-data" class="d-flex justify-content-center create-form flex-grow-1 pt-0">
+          <form action="scripts/upload.php" method="post" enctype="multipart/form-data" class="d-flex justify-content-center align-items-center create-form flex-grow-1 pt-0">
 
             <!-- Section 1: Place Name -->
             <div class="form-section active flex-column justify-content-center align-items-center text-center col-12 col-lg-6" id="section1">
@@ -290,7 +290,7 @@
       var currentLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: `
-          <button type="button" class="attribution-button" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title='&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
+          <button type="button" class="attribution-button" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
             Attributions
           </button>`
       }).addTo(map);
@@ -422,65 +422,48 @@
         }).addTo(map);
       }
 
-      function toggleColorTheme() {
-        if (localStorage.getItem('colorTheme') == 'dark') {
-          return "light";
-        } else {
-          return "dark";
+      document.getElementById('toggle').addEventListener('change', function() {
+        if (this.checked) { //set darkmode
+          localStorage.setItem('colorTheme', 'dark');
+          changeColors('dark');
+        } else { //set lightmode
+          localStorage.setItem('colorTheme', 'light');
+          changeColors('light');
         }
-      }
+      });
 
       function changeColors(newTheme) {
         if (newTheme == 'dark') { //darkmode
-          $('.leaflet-container').css('background-color', '#000000');
+          $('.leaflet-container').css('background-color', 'rgb(0, 0, 0)');
           $('.leaflet-tile-pane').addClass('dark-map');
-          $('body').css('--background', '#181a25');
-          $('body').css('--text', 'white');
+          $('body').css('--background', 'rgb(24, 26, 37)');
+          $('body').css('--text', 'rgb(255, 255, 255)');
         } else { //lightmode
-          $('.leaflet-container').css('background-color', '#aad3df');
+          $('.leaflet-container').css('background-color', 'rgb(170, 211, 223)');
           $('.leaflet-tile-pane').removeClass('dark-map');
-          $('body').css('--background', 'white');
-          $('body').css('--text', 'black');
+          $('body').css('--background', 'rgb(255, 250, 250)');
+          $('body').css('--text', 'rgb(0, 0, 0)');
         }
-        
       }
 
-      // Handle layer toggle button click
-      $('#toggleMapLayerButton').click(function () {
-        newTheme = toggleColorTheme();
-        localStorage.setItem('colorTheme', newTheme);
-        setButton(newTheme);
-        changeColors(newTheme);
-      });
-
       function setInitialColorTheme() {
-        var savedColorTheme = localStorage.getItem('colorTheme');
+        savedColorTheme = localStorage.getItem('colorTheme');
         changeColors(savedColorTheme);
       }
 
-      function setButton(newTheme) {
-        if (newTheme == 'dark') {
-          $('#toggleMapLayerButton').removeClass('light-switch').addClass('dark-switch');
-          $('#layerToggleText').text('Go To Light Mode');
+      function initThemeSwitch(theme) {
+        const switchElement = document.getElementById('toggle');
+        switchElement.checked = !switchElement.checked; // Toggle the checked state
+        if (savedColorTheme == 'dark') {
+          switchElement.checked = true;
         } else {
-          $('#toggleMapLayerButton').removeClass('dark-switch').addClass('light-switch');
-          $('#layerToggleText').text('Go To Dark Mode');
-        }
-      }
-
-      function initToggleButton() {
-        var savedMapState = localStorage.getItem('colorTheme');
-        if (savedMapState) {
-          setButton(savedMapState);
-        } else {
-          localStorage.setItem('colorTheme', 'light');
-          initToggleButton();
+          switchElement.checked = false;
         }
       }
 
       $(document).ready(function() {
         setInitialColorTheme();
-        initToggleButton();
+        initThemeSwitch();
       });
     </script>
 
