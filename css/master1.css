@@ -473,6 +473,10 @@ a {
   transform: translateX(36px);
 }
 
+.settings-bar {
+  border-bottom: 1px solid gray;
+  flex-grow: 1;
+}
 
 @media only screen and (max-width: 768px) {
 
