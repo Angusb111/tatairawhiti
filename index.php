@@ -27,7 +27,11 @@
             <div class="modal-body modal-body-createplace d-flex flex-column">
               <!-- Close Button -->
               <div class="w-100 d-flex flex-direction-row justify-content-end">
-                <button type="button" class="btn-close m-2" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="modal-close-button m-2 p-2" data-bs-dismiss="modal" aria-label="Close">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
+                    <path d="M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z"/>
+                  </svg>
+                </button>
               </div>
               
               <div class="d-flex flex-column justify-content-center flex-grow-1 pt-0">
@@ -78,7 +82,11 @@
         <div class="modal-body modal-body-createplace d-flex flex-column">
           <!-- Close Button -->
           <div class="w-100 d-flex flex-direction-row justify-content-end">
-            <button type="button" class="btn-close m-2" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="modal-close-button m-2 p-2" data-bs-dismiss="modal" aria-label="Close">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
+                <path d="M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z"/>
+              </svg>
+            </button>
           </div>
           <!-- Form for Creating a New Place -->
           <form action="scripts/upload.php" method="post" enctype="multipart/form-data" class="d-flex justify-content-center align-items-center create-form flex-grow-1 pt-0">
@@ -338,31 +346,31 @@
       // Pass the POI data from PHP to JavaScript
       var poiData = <?php echo json_encode($poiData); ?>;
       var nature_icon = L.icon({
-        iconUrl: 'media/nature-marker.png',
+        iconUrl: 'media/tree.png',
         shadowUrl: 'media/shadow.png',
-        iconSize: [34, 50],
-        iconAnchor: [17, 50],
+        iconSize: [30, 30],
+        iconAnchor: [15, 15],
         popupAnchor: [0, 0],
-        shadowSize: [34, 40],
-        shadowAnchor: [2, 35]
+        shadowSize: [50, 50],
+        shadowAnchor: [25, 25]
       });
       var monument_icon = L.icon({
-        iconUrl: 'media/monument-marker.png',
+        iconUrl: 'media/monument.png',
         shadowUrl: 'media/shadow.png',
-        iconSize: [34, 50],
-        iconAnchor: [17, 50],
+        iconSize: [30, 30],
+        iconAnchor: [15, 15],
         popupAnchor: [0, 0],
-        shadowSize: [34, 40],
-        shadowAnchor: [2, 35]
+        shadowSize: [50, 50],
+        shadowAnchor: [25, 25]
       });
       var historical_icon = L.icon({
-        iconUrl: 'media/historical-marker.png',
+        iconUrl: 'media/castle.png',
         shadowUrl: 'media/shadow.png',
-        iconSize: [34, 50],
-        iconAnchor: [17, 50],
+        iconSize: [30, 30],
+        iconAnchor: [15, 15],
         popupAnchor: [0, 0],
-        shadowSize: [34, 40],
-        shadowAnchor: [2, 35]
+        shadowSize: [50, 50],
+        shadowAnchor: [25, 25]
       });
 
       // Add markers to the map
@@ -437,7 +445,7 @@
           $('.leaflet-container').css('background-color', 'rgb(0, 0, 0)');
           $('.leaflet-tile-pane').addClass('dark-map');
           $('body').css('--background', 'rgb(24, 26, 37)');
-          $('body').css('--text', 'rgb(255, 255, 255)');
+          $('body').css('--text', 'rgb(233, 233, 233)');
         } else { //lightmode
           $('.leaflet-container').css('background-color', 'rgb(170, 211, 223)');
           $('.leaflet-tile-pane').removeClass('dark-map');

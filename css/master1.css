@@ -9,17 +9,6 @@
   --color: rgb(170, 211, 223);
 }
 
-.blue-accent {
-  background-color: hsl(194, 45%, 77%);
-}
-
-.btn-sky {
-  background-color: hsl(194, 45%, 77%);
-}
-.btn-sky:hover {
-  background-color: hsl(194, 50%, 72%);
-}
-
 @font-face {
   font-family: "flighty";
   src: url("../fonts/flighty.ttf");
@@ -398,8 +387,8 @@ a {
 }
 
 .category-selector-item.selected {
-  border-color: #0d6efd;
-  background-color: #e7f1ff;
+  border-color: var(--accent);
+  background-color: rgba(231, 241, 255, 0.5);
 }
 
 .leaflet-control-attribution {
@@ -454,13 +443,12 @@ a {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  height: 24px;
-  width: 24px;
-  left: -1px;
-  bottom: -1px;
+  height: 25px;
+  width: 25px;
+  left: -2px;
+  bottom: -2px;
   background-color: var(--background);
   border: 2px solid var(--text);
-  border-width: 2px!important;
   transition: transform 0.33s;
   border-radius: 0.3rem;
 }
@@ -476,6 +464,19 @@ a {
 .settings-bar {
   border-bottom: 1px solid gray;
   flex-grow: 1;
+}
+
+.modal-close-button {
+  color: var(--text)!important;
+  background: none;
+  display: flex;
+  border: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 0.33rem;
+  transition: all 0.33s;
+}
+
+.modal-close-button:hover {
+  border-color: #adb6bd;
 }
 
 @media only screen and (max-width: 768px) {
