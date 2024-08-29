@@ -14,12 +14,16 @@ Tairawhiti Uncovered is a web application designed to help locals and tourists e
 - **Database**: MySQL
 - **Map Integration**: Leaflet with OpenStreetMap
 
-## Up-Next
+## Features in Progress
 
 - **Image Submission**
 - **Dark mode / Light Mode**
-- **Wiki Pages?**
+
+## Up-Next
+
+- **Wiki Pages**
 - **Tags**
+- **Markers Revamp** - with titles
 
 ## Feedback
 
