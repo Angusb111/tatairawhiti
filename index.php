@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta charset="utf-8">
-    <title>Tairāwhiti Uncovered | Discover & Share Local Gems!</title>
+    <title>Discover Tairāwhiti | Discover & Share Local Gems!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="css/master1.css">
     <link rel="icon" href="media/icon.svg">
@@ -37,7 +37,7 @@
               <div class="d-flex flex-column justify-content-center flex-grow-1 pt-0">
                 <h1>About this Project</h1>
                 <div class="content">
-                    <p>Tairāwhiti Uncovered is a web application designed to help locals and tourists explore the hidden gems of the Tairāwhiti region. Our platform allows users to discover and share points of interest, providing a crowd-sourced map of unique locations to explore.</p>
+                    <p>Discover Tairāwhiti is a web application designed to help locals and tourists explore the hidden gems of the Tairāwhiti region. Our platform allows users to discover and share points of interest, providing a crowd-sourced map of unique locations to explore.</p>
                     
                     <h2>Features</h2>
                     <ul class="features-list">
@@ -54,7 +54,7 @@
                     </ul>
                     
                     <h2>Up-Next</h2>
-                    <p>We are constantly working to improve Tairāwhiti Uncovered. Here are some features we plan to add soon:</p>
+                    <p>We are constantly working to improve Discover Tairāwhiti. Here are some features we plan to add soon:</p>
                     <ul class="features-list">
                         <li>Image Submission</li>
                         <li>Dark mode / Light Mode</li>
@@ -442,7 +442,7 @@
 
       function changeColors(newTheme) {
         if (newTheme == 'dark') { //darkmode
-          $('.leaflet-container').css('background-color', 'rgb(0, 0, 0)');
+          $('.leaflet-container').css('background-color', 'rgb(23, 58, 77)');
           $('.leaflet-tile-pane').addClass('dark-map');
           $('body').css('--background', 'rgb(24, 26, 37)');
           $('body').css('--text', 'rgb(233, 233, 233)');
