@@ -229,8 +229,8 @@
         success: function (response) {
           console.log(response); // Log the response for debugging
           if (response.success) {
-            alert('Place saved successfully!');
-            // Optionally, close the modal or reset the form
+            $('form')[0].reset();
+            $('.category-selector-item').removeClass('selected'); // Reset category selection
             $('#createMarkerModal').modal('hide');
           } else {
             alert('Error: ' + response.message);
@@ -342,35 +342,30 @@
         $('.category-selector-item').removeClass('selected');
         $(this).addClass('selected');
       });
-
+      <?php
+      $iconCommonConfig = "
+      iconSize: [30, 30],
+      iconAnchor: [15, 15],
+      popupAnchor: [0, 0],
+      shadowSize: [50, 50],
+      shadowAnchor: [25, 25]
+      ";?>
       // Pass the POI data from PHP to JavaScript
       var poiData = <?php echo json_encode($poiData); ?>;
       var nature_icon = L.icon({
         iconUrl: 'media/tree.png',
         shadowUrl: 'media/shadow.png',
-        iconSize: [30, 30],
-        iconAnchor: [15, 15],
-        popupAnchor: [0, 0],
-        shadowSize: [50, 50],
-        shadowAnchor: [25, 25]
+        <?php echo $iconCommonConfig; ?>
       });
       var monument_icon = L.icon({
         iconUrl: 'media/monument.png',
         shadowUrl: 'media/shadow.png',
-        iconSize: [30, 30],
-        iconAnchor: [15, 15],
-        popupAnchor: [0, 0],
-        shadowSize: [50, 50],
-        shadowAnchor: [25, 25]
+        <?php echo $iconCommonConfig; ?>
       });
       var historical_icon = L.icon({
         iconUrl: 'media/castle.png',
         shadowUrl: 'media/shadow.png',
-        iconSize: [30, 30],
-        iconAnchor: [15, 15],
-        popupAnchor: [0, 0],
-        shadowSize: [50, 50],
-        shadowAnchor: [25, 25]
+        <?php echo $iconCommonConfig; ?>
       });
 
       // Add markers to the map
