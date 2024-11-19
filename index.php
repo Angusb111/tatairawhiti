@@ -19,61 +19,67 @@
     <?php include 'mini/header.php'; ?>
     <div id="map"></div>
 
-    <!-- About Modal -->
-    <div class="modal modal-xl fade" id="aboutModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-frame d-flex">
-        <div class="modal-dialog modal-dialog-createplace">
-          <div class="modal-content rounded-4 border-0 modal-content-createplace">
-            <div class="modal-body modal-body-createplace d-flex flex-column">
-              <!-- Close Button -->
-              <div class="w-100 d-flex flex-direction-row justify-content-end">
-                <button type="button" class="modal-close-button m-2 p-2" data-bs-dismiss="modal" aria-label="Close">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
-                    <path d="M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z"/>
-                  </svg>
-                </button>
-              </div>
+<!-- About Modal -->
+<div class="modal modal-xl fade" id="aboutModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-frame d-flex">
+    <div class="modal-dialog modal-dialog-createplace">
+      <div class="modal-content rounded-4 border-0 modal-content-createplace">
+        <div class="modal-body modal-body-createplace d-flex flex-column">
+          <!-- Close Button -->
+          <div class="w-100 d-flex flex-direction-row justify-content-between">
+          <h1 class="px-5">About this Project</h1>
+            <button type="button" class="modal-close-button m-2 p-2" data-bs-dismiss="modal" aria-label="Close">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
+                <path d="M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z"/>
+              </svg>
+            </button>
+          </div>
+          
+          <div class="d-flex flex-column justify-content-center flex-grow-1 pt-0">
+            <div class="content px-5">
+              <p><strong>Discover Tairāwhiti</strong> is a web application designed to help locals and tourists explore the hidden gems of the Tairāwhiti region. The platform allows users to discover and share points of interest, providing a crowd-sourced map of unique locations to explore.</p>
               
-              <div class="d-flex flex-column justify-content-center flex-grow-1 pt-0">
-                <h1>About this Project</h1>
-                <div class="content">
-                    <p>Discover Tairāwhiti is a web application designed to help locals and tourists explore the hidden gems of the Tairāwhiti region. Our platform allows users to discover and share points of interest, providing a crowd-sourced map of unique locations to explore.</p>
-                    
-                    <h2>Features</h2>
-                    <ul class="features-list">
-                        <li><strong>Crowd-Sourced Knowledge:</strong> Users can submit points of interest to share with others in the region.</li>
-                        <li><strong>Map Integration:</strong> Utilizes OpenStreetMap through Leaflet for interactive mapping.</li>
-                    </ul>
-                    
-                    <h2>Technology Stack</h2>
-                    <ul class="tech-stack-list">
-                        <li><strong>Frontend:</strong> HTML, CSS, JavaScript (Bootstrap for styling)</li>
-                        <li><strong>Backend:</strong> PHP</li>
-                        <li><strong>Database:</strong> MySQL</li>
-                        <li><strong>Map Integration:</strong> Leaflet with OpenStreetMap</li>
-                    </ul>
-                    
-                    <h2>Up-Next</h2>
-                    <p>We are constantly working to improve Discover Tairāwhiti. Here are some features we plan to add soon:</p>
-                    <ul class="features-list">
-                        <li>Image Submission</li>
-                        <li>Dark mode / Light Mode</li>
-                        <li>Wiki Pages?</li>
-                    </ul>
-                    
-                    <h2>Feedback</h2>
-                    <p>For now, you cannot submit feedback. In future versions, it will be accessible through a dedicated menu option.</p>
-                </div>
-              </div>
-            </div>
-            <!-- Modal Footer -->
-            <div class="modal-footer border-0 p-0">
-                  <!-- No footer buttons, they are in the form sections -->
+              <h2>Features</h2>
+              <ul class="features-list">
+                <li><strong>Crowd-Sourced Knowledge:</strong> Users can submit points of interest to share with others in the region.</li>
+                <li><strong>Map Integration:</strong> Utilizes OpenStreetMap through Leaflet for interactive mapping.</li>
+              </ul>
+              
+              <h2>Technology Stack</h2>
+              <ul class="tech-stack-list">
+                <li><strong>Frontend:</strong> HTML, CSS, JavaScript (Bootstrap for styling)</li>
+                <li><strong>Backend:</strong> PHP</li>
+                <li><strong>Database:</strong> MySQL</li>
+                <li><strong>Map Integration:</strong> Leaflet with OpenStreetMap</li>
+              </ul>
+              
+              <h2>Features in Progress</h2>
+              <ul class="features-list">
+                <li>Image Submission</li>
+                <li>Dark Mode / Light Mode</li>
+              </ul>
+              
+              <h2>Up-Next</h2>
+              <ul class="features-list">
+                <li>Wiki Pages</li>
+                <li>Tags</li>
+                <li>Markers Revamp - with titles</li>
+              </ul>
+              
+              <h2>Feedback</h2>
+              <p>For now, you cannot submit feedback. In future versions, it will be accessible through a dedicated menu option.</p>
             </div>
           </div>
         </div>
+        <!-- Modal Footer -->
+        <div class="modal-footer border-0 p-0">
+          <!-- No footer buttons, they are in the form sections -->
+        </div>
       </div>
     </div>
+  </div>
+</div>
+
 
 <div class="modal fade" id="createMarkerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-frame d-flex align-items-center">
@@ -370,46 +376,69 @@
 
       // Add markers to the map
       poiData.forEach(function(poi) {
-        var markerIcon;
-        if (poi.category == 0) {
-          markerIcon = historical_icon;
-        } else if (poi.category == 1) {
-          markerIcon = nature_icon;
-        } else if (poi.category == 2) {
-          markerIcon = monument_icon;
-        }
-        var marker = L.marker([poi.latitude, poi.longitude], {icon: markerIcon}).addTo(map);
-        var popupContent = `
-          <div class="d-flex flex-column flex-grow-1 marker-card-content" style="width: 18rem;">
-            <img src="media/${poi.image}" class="card-img-top" alt="POI Image">
-            <div class="card-body p-3 marker-card-bottom">
-              <h5 class="card-title">${poi.name}</h5>
-              <p class="card-text">${poi.description}</p>
-            </div>
-            <div class="d-flex marker-card-bottom mb-1">
-              <a class="col-6 d-flex justify-content-center text-black border-end p-2" href="https://www.google.com/maps?q=${poi.latitude},${poi.longitude}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google me-2" viewBox="0 0 16 16">
-                  <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
-                </svg>
-                Google Maps
-              </a>
-              <a class="col-6 d-flex justify-content-center text-black p-2" href="https://maps.apple.com/?q=${poi.latitude},${poi.longitude}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-apple me-2" viewBox="0 0 16 16">
-                  <path d="M11.182.008C11.148-.03 9.923.023 8.857 1.18c-1.066 1.156-.902 2.482-.878 2.516s1.52.087 2.475-1.258.762-2.391.728-2.43m3.314 11.733c-.048-.096-2.325-1.234-2.113-3.422s1.675-2.789 1.698-2.854-.597-.79-1.254-1.157a3.7 3.7 0 0 0-1.563-.434c-.108-.003-.483-.095-1.254.116-.508.139-1.653.589-1.968.607-.316.018-1.256-.522-2.267-.665-.647-.125-1.333.131-1.824.328-.49.196-1.422.754-2.074 2.237-.652 1.482-.311 3.83-.067 4.56s.625 1.924 1.273 2.796c.576.984 1.34 1.667 1.659 1.899s1.219.386 1.843.067c.502-.308 1.408-.485 1.766-.472.357.013 1.061.154 1.782.539.571.197 1.111.115 1.652-.105.541-.221 1.324-1.059 2.238-2.758q.52-1.185.473-1.282"/>
-                  <path d="M11.182.008C11.148-.03 9.923.023 8.857 1.18c-1.066 1.156-.902 2.482-.878 2.516s1.52.087 2.475-1.258.762-2.391.728-2.43m3.314 11.733c-.048-.096-2.325-1.234-2.113-3.422s1.675-2.789 1.698-2.854-.597-.79-1.254-1.157a3.7 3.7 0 0 0-1.563-.434c-.108-.003-.483-.095-1.254.116-.508.139-1.653.589-1.968.607-.316.018-1.256-.522-2.267-.665-.647-.125-1.333.131-1.824.328-.49.196-1.422.754-2.074 2.237-.652 1.482-.311 3.83-.067 4.56s.625 1.924 1.273 2.796c.576.984 1.34 1.667 1.659 1.899s1.219.386 1.843.067c.502-.308 1.408-.485 1.766-.472.357.013 1.061.154 1.782.539.571.197 1.111.115 1.652-.105.541-.221 1.324-1.059 2.238-2.758q.52-1.185.473-1.282"/>
-                </svg>
-                Apple Maps
-              </a>
-            </div>
-          </div>
-        `;
-        marker.bindPopup(popupContent, {
-            className: 'marker-card',
-            autoPan: true,
-            autoPanPaddingTopLeft: L.point(20, 60),
-            autoPanPaddingBottomRight: L.point(20, 20)
-        });
-      });
+    var markerIconHtml;
+    
+    // Choose the correct icon based on the category
+    if (poi.category == 0) {
+        markerIconHtml = '<div class="custom-marker"><div class="marker-shadow"><img src="media/shadow.png"></div><img src="media/castle.png" alt="Historical Icon"></div>';
+    } else if (poi.category == 1) {
+        markerIconHtml = '<div class="custom-marker"><div class="marker-shadow"><img src="media/shadow.png"></div><img src="media/tree.png" alt="Nature Icon"></div>';
+    } else if (poi.category == 2) {
+        markerIconHtml = '<div class="custom-marker"><div class="marker-shadow"><img src="media/shadow.png"></div><img src="media/monument.png" alt="Monument Icon"></div>';
+    }
+    
+    // Create a DivIcon for the marker
+    var markerIcon = L.divIcon({
+        html: markerIconHtml,
+        className: 'custom-div-icon', // Optional: You can define custom CSS classes for additional styling
+        iconSize: [30, 30],  // Set size as needed
+        iconAnchor: [15, 15], // Anchor the icon correctly
+        popupAnchor: [0, -15] // Adjust to position the popup above the marker
+    });
+    
+    // Add marker to the map
+    var marker = L.marker([poi.latitude, poi.longitude], {icon: markerIcon}).addTo(map);
+
+    // Add the popup content as before
+    var popupContent = `
+      <div class="d-flex flex-column flex-grow-1 marker-card-content" style="width: 18rem;">
+        <img src="media/${poi.image}" class="card-img-top" alt="POI Image">
+        <div class="card-body p-3 marker-card-bottom">
+          <h5 class="card-title">${poi.name}</h5>
+          <p class="card-text">${poi.description}</p>
+        </div>
+        <a class="col-12 d-flex justify-content-center align-items-center text-black border-bottom border-top p-2" href="wiki.php?poiId=${poi.id}">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24"  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="me-2">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+</svg>
+
+Mātauranga
+</a>
+        <div class="d-flex marker-card-bottom mb-1">
+          <a class="col-6 d-flex justify-content-center text-black border-end p-2" href="https://www.google.com/maps?q=${poi.latitude},${poi.longitude}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google me-2" viewBox="0 0 16 16">
+              <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+            </svg>
+            Google Maps
+          </a>
+          <a class="col-6 d-flex justify-content-center text-black p-2" href="https://maps.apple.com/?q=${poi.latitude},${poi.longitude}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-apple me-2" viewBox="0 0 16 16">
+              <path d="M11.182.008C11.148-.03 9.923.023 8.857 1.18c-1.066 1.156-.902 2.482-.878 2.516s1.52.087 2.475-1.258.762-2.391.728-2.43m3.314 11.733c-.048-.096-2.325-1.234-2.113-3.422s1.675-2.789 1.698-2.854-.597-.79-1.254-1.157a3.7 3.7 0 0 0-1.563-.434c-.108-.003-.483-.095-1.254.116-.508.139-1.653.589-1.968.607-.316.018-1.256-.522-2.267-.665-.647-.125-1.333.131-1.824.328-.49.196-1.422.754-2.074 2.237-.652 1.482-.311 3.83-.067 4.56s.625 1.924 1.273 2.796c.576.984 1.34 1.667 1.659 1.899s1.219.386 1.843.067c.502-.308 1.408-.485 1.766-.472.357.013 1.061.154 1.782.539.571.197 1.111.115 1.652-.105.541-.221 1.324-1.059 2.238-2.758q.52-1.185.473-1.282"/>
+            </svg>
+            Apple Maps
+          </a>
+        </div>
+      </div>
+    `;
+    
+    marker.bindPopup(popupContent, {
+        className: 'marker-card',
+        autoPan: true,
+        autoPanPaddingTopLeft: L.point(20, 60),
+        autoPanPaddingBottomRight: L.point(20, 20)
+    });
+});
+
 
       function switchMapLayer(newLayerUrl) {
         // Remove the current layer

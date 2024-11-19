@@ -138,6 +138,11 @@
   font-family: dm_serif;
 }
 
+.wiki-title {
+  font-family: dm_serif;
+  font-weight: 100;
+}
+
 body {
   width: 100%;
   display: flex;
@@ -266,10 +271,12 @@ a {
 .mapclick-popup .leaflet-popup-content-wrapper {
   background-color: var(--background);
   color: var(--text);
+  border: 1px solid var(--text);
 }
 
 .mapclick-popup .leaflet-popup-tip {
   background-color: var(--background);
+  
 }
 
 .area-selector-coords {
@@ -305,7 +312,7 @@ a {
   height: 32px!important;
 }
 
-.marker-card-bottom a {
+.marker-card a {
   color: var(--text)!important;
   border-color: var(--text)!important;
 }
@@ -322,7 +329,7 @@ a {
 
 .leaflet-popup-tip {
   background-color: var(--background)!important;
-  border: 1px solid var(--secondary);
+  border: 1px solid var(--text);
 }
 
 .leaflet-popup-close-button:hover {
@@ -343,7 +350,7 @@ a {
 .marker-card-content {
   z-index: 0;
   font-family: dm_sans;
-  border: 1px solid var(--secondary);
+  border: 1px solid var(--text);
   border-radius: 12px;
 }
 
@@ -478,6 +485,57 @@ a {
 .modal-close-button:hover {
   border-color: #adb6bd;
 }
+
+.container {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: var(--background, #f4f4f4); /* Default color if theme is not set */
+  color: var(--text, #333); /* Default text color */
+  display: flex;
+  justify-content: center;
+  height: 100vh
+}
+
+.image-wrapper {
+  width: 100%; /* The parent spans the full width of its container */
+  height: 400px; /* Example parent height */
+  position: relative; /* Allow child elements to reference parent size */
+}
+
+.responsive-image {
+  width: 100%; /* Span the entire width of the parent */
+  height: calc(100% - 50px); /* Subtract 50px from the parent's height */
+  object-fit: cover; /* Adjust the image to cover its container */
+  display: block; /* Remove any gaps around the image */
+}
+
+.wiki-content {
+  flex-grow: 1;
+  padding: 30px;
+  max-width: 680px;
+  box-shadow: 0px 0px 30px black;
+}
+
+.custom-marker {
+  position: relative;
+}
+
+.custom-marker img {
+  width: 30px;
+  height: 30px;
+  z-index: 3;
+}
+
+.marker-shadow {
+  position: absolute;
+  top: 10px; /* Adjust for proper placement below the marker */
+  left: 0;
+  width: 50px;
+  height: 50px;
+  opacity: 0.5; /* Optional: Add shadow transparency */
+  z-index: 2;
+}
+
 
 @media only screen and (max-width: 768px) {
 
