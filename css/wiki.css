@@ -1,0 +1,21 @@
+.wiki-page {
+    background-color: var(--background);
+}
+
+.info-section {
+    padding: 1rem;
+    color: var(--text);
+}
+
+.info-title {
+    margin-top: 0;
+    font-family: dm_serif;
+}
+
+.comment-section {
+    padding: 1rem;
+}
+
+.comment-section h2 {
+    font-family: dm_serif;
+}
