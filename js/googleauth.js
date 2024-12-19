@@ -9,12 +9,17 @@ window.onload = () => {
     );
 };
   
-// Callback function to handle the user's sign-in process
 function handleSignIn(response) {
     const token = response.credential;
     const user = parseJwt(token); // Decode the JWT to extract user information
-    
-    console.log(user); // Log user details for debugging
+
+    console.log("Decoded JWT:", user); // Log user details for debugging
+
+    // Check if `parseJwt` returned valid data
+    if (!user || !user.email || !user.name || !user.picture) {
+        console.error("Invalid user data from token:", user);
+        return;
+    }
 
     // Send the user information to the server for first-time login
     fetch('scripts/save_user.php', {
@@ -28,18 +33,25 @@ function handleSignIn(response) {
             avatar: user.picture
         })
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log("Raw response:", response);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
+        console.log("Server response data:", data);
         if (data.success) {
-            // Handle successful response (e.g., update UI with user info)
-            localStorage.setItem('user', JSON.stringify(user)); // Save user info to localStorage
-            window.location.reload(); // Reload the page to reflect the signed-in state
+            // Save user info to localStorage and update UI
+            localStorage.setItem('user', JSON.stringify(user));
         } else {
-            console.error('Error saving user data');
+            console.error('Error saving user data:', data);
         }
     })
     .catch(error => console.error('Error:', error));
 }
+
 
 // Handle the credential response when the user logs in
 function handleCredentialResponse(response) {
