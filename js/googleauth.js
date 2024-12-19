@@ -74,7 +74,8 @@ function parseJwt(token) {
     return JSON.parse(jsonPayload);
 }
 
-// Function to check if the user is signed in and update the UI accordingly
+
+    // Function to check if the user is signed in and update the UI accordingly
 function checkUserSignIn() {
     // Retrieve user data from localStorage
     const persistentUserData = JSON.parse(localStorage.getItem('user'));
@@ -92,8 +93,23 @@ function checkUserSignIn() {
     const userInfoDiv = document.createElement('div');
     userInfoDiv.id = 'user-info';
     userInfoDiv.classList.add('signedin-chit', 'flex-grow-1');
-    document.getElementById("user_name").value = persistentUserData.name;
-    document.getElementById("user_email").value = persistentUserData.email;
+    
+    function riskyFunction() {
+        document.getElementById("user_name").value = persistentUserData.name;
+        document.getElementById("user_email").value = persistentUserData.email;
+    }
+    
+    if (window.location.pathname.endsWith('wiki.php')) {
+        try {
+          // Your code that might throw an error
+          riskyFunction();
+        } catch (error) {
+          console.error("An error occurred:", error.message);
+        }
+      } else {
+        
+      }
+    
 
     if (persistentUserData) {
         // User is signed in, hide the sign-in button and display user info
@@ -117,6 +133,7 @@ function checkUserSignIn() {
         googleSignInButton.style.display = 'block';
     }
 }
+
 
 // Function to log out the user
 function logout() {

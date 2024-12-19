@@ -1,5 +1,10 @@
 .wiki-page {
-    background-color: var(--background);
+    background-image: url(../media/fern.jpg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .info-section {
@@ -36,4 +41,18 @@
 .comment {
     border-top: 1px solid grey;
     padding-top: 16px;
+}
+
+.info-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 768px;
+    background-color: var(--background);
+}
+
+@media only screen and (max-width: 768px) {
+    .info-wrapper {
+        max-width: 100vw;
+        padding-top: 56px;
+    }
 }

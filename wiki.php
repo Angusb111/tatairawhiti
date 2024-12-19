@@ -91,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
 </head>
 <body class="wiki-page">
 <?php include 'mini/header.php'; ?>
+<div class="info-wrapper">
     <img class="wiki-image"></img>
     
     <div class="info-section">
@@ -196,6 +197,7 @@ $conn->close();
         </div>
         
     </div>
+</div>
 </body>
 <script src="js/theme.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
