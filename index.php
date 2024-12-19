@@ -11,10 +11,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="js/googleauth.js"></script>
+    <script src="js/buttonsinit.js"></script>
   </head>
-  <style>
-    #map { height: 100%; }
-  </style>
+
+
+
+
   <body id="home-page">
     <?php include 'mini/header.php'; ?>
     <div id="map"></div>
@@ -27,7 +31,7 @@
         <div class="modal-body modal-body-createplace d-flex flex-column">
           <!-- Close Button -->
           <div class="w-100 d-flex flex-direction-row justify-content-between">
-          <h1 class="px-5">About this Project</h1>
+          <h1 class="px-5">About Discover Tairawhiti</h1>
             <button type="button" class="modal-close-button m-2 p-2" data-bs-dismiss="modal" aria-label="Close">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
                 <path d="M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z"/>
@@ -45,18 +49,11 @@
                 <li><strong>Map Integration:</strong> Utilizes OpenStreetMap through Leaflet for interactive mapping.</li>
               </ul>
               
-              <h2>Technology Stack</h2>
-              <ul class="tech-stack-list">
-                <li><strong>Frontend:</strong> HTML, CSS, JavaScript (Bootstrap for styling)</li>
-                <li><strong>Backend:</strong> PHP</li>
-                <li><strong>Database:</strong> MySQL</li>
-                <li><strong>Map Integration:</strong> Leaflet with OpenStreetMap</li>
-              </ul>
-              
               <h2>Features in Progress</h2>
               <ul class="features-list">
                 <li>Image Submission</li>
                 <li>Dark Mode / Light Mode</li>
+                <li>Public Comments With Google 0Auth</li>
               </ul>
               
               <h2>Up-Next</h2>
@@ -295,11 +292,6 @@
 
       var mapContainer = document.getElementById('map');
 
-      // Initialize colorTheme in localStorage if not already set
-      if (!localStorage.getItem('colorTheme')) {
-        localStorage.setItem('colorTheme', 'light');
-      }
-
       // Create the tile layer from localStorage
       var currentLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
@@ -312,10 +304,6 @@
       var zoomControl = L.control.zoom({
         position: 'bottomleft'
       }).addTo(map);
-
-      function aboutClick() {
-        $('#aboutModal').modal('show');
-      }
 
       function buttonClick(lat, lng) {
         $('#PlaceLatitudeInput').val(lat); // Insert coords into hidden form inputs
@@ -332,7 +320,7 @@
         var popupContent = `
           <div class="d-flex flex-column area-selector-popup">
             <p class="p-2 m-0 area-selector-coords flex-grow-1">${lat.toFixed(4)}, ${lng.toFixed(4)}</p>
-            <button class="p-2 border-0 w-100 create-marker-btn" onClick="buttonClick(${lat.toFixed(6)}, ${lng.toFixed(6)});">Create Marker</button>
+            <button class="p-2 border-0 w-100 accent-btn bg-none" onClick="buttonClick(${lat.toFixed(6)}, ${lng.toFixed(6)});">Create Marker</button>
           </div>
         `;
 
@@ -348,31 +336,9 @@
         $('.category-selector-item').removeClass('selected');
         $(this).addClass('selected');
       });
-      <?php
-      $iconCommonConfig = "
-      iconSize: [30, 30],
-      iconAnchor: [15, 15],
-      popupAnchor: [0, 0],
-      shadowSize: [50, 50],
-      shadowAnchor: [25, 25]
-      ";?>
+
       // Pass the POI data from PHP to JavaScript
       var poiData = <?php echo json_encode($poiData); ?>;
-      var nature_icon = L.icon({
-        iconUrl: 'media/tree.png',
-        shadowUrl: 'media/shadow.png',
-        <?php echo $iconCommonConfig; ?>
-      });
-      var monument_icon = L.icon({
-        iconUrl: 'media/monument.png',
-        shadowUrl: 'media/shadow.png',
-        <?php echo $iconCommonConfig; ?>
-      });
-      var historical_icon = L.icon({
-        iconUrl: 'media/castle.png',
-        shadowUrl: 'media/shadow.png',
-        <?php echo $iconCommonConfig; ?>
-      });
 
       // Add markers to the map
       poiData.forEach(function(poi) {
@@ -380,19 +346,19 @@
     
     // Choose the correct icon based on the category
     if (poi.category == 0) {
-        markerIconHtml = '<div class="custom-marker"><div class="marker-shadow"><img src="media/shadow.png"></div><img src="media/castle.png" alt="Historical Icon"></div>';
+        markerIconHtml = '<div class="custom-marker"><img src="media/histicon.png" alt="Historical Icon"></div>';
     } else if (poi.category == 1) {
-        markerIconHtml = '<div class="custom-marker"><div class="marker-shadow"><img src="media/shadow.png"></div><img src="media/tree.png" alt="Nature Icon"></div>';
+        markerIconHtml = '<div class="custom-marker"><img src="media/fernicon.png" alt="Nature Icon"></div>';
     } else if (poi.category == 2) {
-        markerIconHtml = '<div class="custom-marker"><div class="marker-shadow"><img src="media/shadow.png"></div><img src="media/monument.png" alt="Monument Icon"></div>';
+        markerIconHtml = '<div class="custom-marker"><img src="media/monicon.png" alt="Monument Icon"></div>';
     }
     
     // Create a DivIcon for the marker
     var markerIcon = L.divIcon({
         html: markerIconHtml,
         className: 'custom-div-icon', // Optional: You can define custom CSS classes for additional styling
-        iconSize: [30, 30],  // Set size as needed
-        iconAnchor: [15, 15], // Anchor the icon correctly
+        iconSize: [34, 40],  // Set size as needed
+        iconAnchor: [17, 40], // Anchor the icon correctly
         popupAnchor: [0, -15] // Adjust to position the popup above the marker
     });
     
@@ -408,12 +374,11 @@
           <p class="card-text">${poi.description}</p>
         </div>
         <a class="col-12 d-flex justify-content-center align-items-center text-black border-bottom border-top p-2" href="wiki.php?poiId=${poi.id}">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24"  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="me-2">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-</svg>
-
-Mātauranga
-</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
+            <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0"/>
+          </svg>
+        Mātauranga / Info
+        </a>
         <div class="d-flex marker-card-bottom mb-1">
           <a class="col-6 d-flex justify-content-center text-black border-end p-2" href="https://www.google.com/maps?q=${poi.latitude},${poi.longitude}">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google me-2" viewBox="0 0 16 16">
@@ -454,50 +419,8 @@ Mātauranga
         }).addTo(map);
       }
 
-      document.getElementById('toggle').addEventListener('change', function() {
-        if (this.checked) { //set darkmode
-          localStorage.setItem('colorTheme', 'dark');
-          changeColors('dark');
-        } else { //set lightmode
-          localStorage.setItem('colorTheme', 'light');
-          changeColors('light');
-        }
-      });
-
-      function changeColors(newTheme) {
-        if (newTheme == 'dark') { //darkmode
-          $('.leaflet-container').css('background-color', 'rgb(23, 58, 77)');
-          $('.leaflet-tile-pane').addClass('dark-map');
-          $('body').css('--background', 'rgb(24, 26, 37)');
-          $('body').css('--text', 'rgb(233, 233, 233)');
-        } else { //lightmode
-          $('.leaflet-container').css('background-color', 'rgb(170, 211, 223)');
-          $('.leaflet-tile-pane').removeClass('dark-map');
-          $('body').css('--background', 'rgb(255, 250, 250)');
-          $('body').css('--text', 'rgb(0, 0, 0)');
-        }
-      }
-
-      function setInitialColorTheme() {
-        savedColorTheme = localStorage.getItem('colorTheme');
-        changeColors(savedColorTheme);
-      }
-
-      function initThemeSwitch(theme) {
-        const switchElement = document.getElementById('toggle');
-        switchElement.checked = !switchElement.checked; // Toggle the checked state
-        if (savedColorTheme == 'dark') {
-          switchElement.checked = true;
-        } else {
-          switchElement.checked = false;
-        }
-      }
-
-      $(document).ready(function() {
-        setInitialColorTheme();
-        initThemeSwitch();
-      });
     </script>
+    <script src="js/theme.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   </body>
