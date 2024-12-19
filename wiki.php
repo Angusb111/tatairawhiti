@@ -147,10 +147,10 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     // Loop through the comments and display them
     while ($comment = $result->fetch_assoc()) {
-        $avatar = htmlspecialchars($comment['avatar']); // Get the avatar from the users table
-        $userName = htmlspecialchars($comment['user_name']);
+        $avatar = $comment['avatar']; // Get the avatar from the users table
+        $userName = $comment['user_name'];
         $timestamp = $comment['timestamp'];
-        $commentText = htmlspecialchars($comment['comment']);
+        $commentText = $comment['comment'];
 
         $timestampUnix = strtotime($timestamp);
         $timestampUnix -= 43200; // CORRECTION- REMOVE LATER -12 hours
