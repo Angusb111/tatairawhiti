@@ -251,8 +251,8 @@
     <?php
     // Connect to MySQL database
     $servername = "localhost";
-    $username = "root";
-    $password = "";
+    $username = "user";
+    $password = "iott3";
     $dbname = "poi_database";
 
     $conn = new mysqli($servername, $username, $password, $dbname);

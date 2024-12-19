@@ -7,15 +7,16 @@ window.onload = () => {
       document.getElementById("google-signin-button"),
       { theme: "outline", size: "large" }
     );
-  };
+};
   
-  function handleSignIn(response) {
+// Callback function to handle the user's sign-in process
+function handleSignIn(response) {
     const token = response.credential;
-    const user = parseJwt(token); // Decode the JWT to get user info
+    const user = parseJwt(token); // Decode the JWT to extract user information
     
-    console.log(user); // Display user details
+    console.log(user); // Log user details for debugging
 
-    // Send the user info to the server for the first time login
+    // Send the user information to the server for first-time login
     fetch('scripts/save_user.php', {
         method: 'POST',
         headers: {
@@ -30,8 +31,8 @@ window.onload = () => {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Handle success (e.g., update UI with user details)
-            localStorage.setItem('user', JSON.stringify(user)); // Store user info in localStorage
+            // Handle successful response (e.g., update UI with user info)
+            localStorage.setItem('user', JSON.stringify(user)); // Save user info to localStorage
             window.location.reload(); // Reload the page to reflect the signed-in state
         } else {
             console.error('Error saving user data');
@@ -40,19 +41,18 @@ window.onload = () => {
     .catch(error => console.error('Error:', error));
 }
 
-
-  
-// Google Sign-In button callback
+// Handle the credential response when the user logs in
 function handleCredentialResponse(response) {
     const token = response.credential;
-    const userData = parseJwt(token); // Parse JWT to extract user data
-    user = userData;
+    const persistentUserData = parseJwt(token); // Decode JWT to extract user data
+    user = persistentUserData;
     console.log(user.name); // Debug: check if name is correctly parsed
     console.log(user.email); // Debug: check if email is correctly parsed
     document.getElementById("user_name").value = user.name;
     document.getElementById("user_email").value = user.email;
 }
 
+// Helper function to parse a JWT token and extract user data
 function parseJwt(token) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -62,42 +62,42 @@ function parseJwt(token) {
     return JSON.parse(jsonPayload);
 }
 
-// Function to check if the user is signed in and display their info
+// Function to check if the user is signed in and update the UI accordingly
 function checkUserSignIn() {
     // Retrieve user data from localStorage
-    const userData = JSON.parse(localStorage.getItem('user'));
+    const persistentUserData = JSON.parse(localStorage.getItem('user'));
 
     const accountDiv = document.getElementById('account');
     const googleSignInButton = document.getElementById('google-signin-button');
     const signOutButton = document.createElement('button');
     signOutButton.id = 'sign-out-button';
-    signOutButton.textContent = 'Sign Out';
+    signOutButton.textContent = 'Log Out';
+
+    const signedInAs = document.createElement('p');
+    signedInAs.style.fontSize = '0.8rem';
+    signedInAs.innerHTML = 'Signed in as:';
 
     const userInfoDiv = document.createElement('div');
     userInfoDiv.id = 'user-info';
-    userInfoDiv.classList.add('signedin-chit', 'col-6', 'flex-grow-1', 'p-2', 'rounded');
+    userInfoDiv.classList.add('signedin-chit', 'flex-grow-1');
+    document.getElementById("user_name").value = persistentUserData.name;
+    document.getElementById("user_email").value = persistentUserData.email;
 
-    if (userData) {
+    if (persistentUserData) {
         // User is signed in, hide the sign-in button and display user info
         googleSignInButton.style.display = 'none';
 
         // Create and populate user info div
         userInfoDiv.innerHTML = `
-
-            <p style="font-size: 0.8rem;">Signed in as:</p>
-            <div class="d-flex flex-row justify-content-start align-items-center">
-            
-            <img src="${userData.picture}" alt="User Avatar" onError="this.onerror=null; this.src='media/googlelogo.png';" style="width: 30px; height: 30px; margin:10px; border-radius: 50%;"/>
-            <p>${userData.name}</p>
-            </div>
-            
+            <img src="${persistentUserData.picture}" referrerPolicy="no-referrer" alt="User Avatar" onError="this.onerror=null; this.src='media/googlelogo.png';" style="width: 32px; height: 32px; margin:0px; border-radius: 8.5px; "/>
+            <p style="margin:0px 10px;">${persistentUserData.name}</p>
         `;
-
-        // Display sign-out button
-        signOutButton.style.display = 'inline-block';
+        
+        // Display sign-out button and set event listener
         signOutButton.addEventListener('click', logout);
-
+        
         // Append the user info and sign-out button to the account div
+        accountDiv.appendChild(signedInAs);
         accountDiv.appendChild(userInfoDiv);
         accountDiv.appendChild(signOutButton);
     } else {
@@ -106,15 +106,14 @@ function checkUserSignIn() {
     }
 }
 
-// Function to handle sign out
+// Function to log out the user
 function logout() {
-    // Clear the user data from localStorage
+    // Remove user data from localStorage
     localStorage.removeItem('user');
 
     // Reload the page to reflect the changes
     window.location.reload();
 }
 
-// Call this function when the page loads
+// Check user sign-in status when the page loads
 document.addEventListener('DOMContentLoaded', checkUserSignIn);
-
