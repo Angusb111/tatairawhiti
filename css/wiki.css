@@ -13,9 +13,27 @@
 }
 
 .comment-section {
+    color: var(--text);
     padding: 1rem;
 }
 
 .comment-section h2 {
     font-family: dm_serif;
+}
+
+#comment-input {
+    background-color: var(--color);
+    border: none;
+    border-radius: 8px 0 0 8px;
+    padding: 8px;
+    color: var(--text);
+}
+
+.comment-submit-button {
+    border-radius: 0 8px 8px 0;
+}
+
+.comment {
+    border-top: 1px solid grey;
+    padding-top: 16px;
 }
