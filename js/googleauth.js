@@ -13,8 +13,6 @@ function handleSignIn(response) {
     const token = response.credential;
     const user = parseJwt(token); // Decode the JWT to extract user information
 
-    console.log("Decoded JWT:", user); // Log user details for debugging
-
     // Check if `parseJwt` returned valid data
     if (!user || !user.email || !user.name || !user.picture) {
         console.error("Invalid user data from token:", user);
@@ -34,22 +32,22 @@ function handleSignIn(response) {
         })
     })
     .then(response => {
-        console.log("Raw response:", response);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
     })
     .then(data => {
-        console.log("Server response data:", data);
         if (data.success) {
             // Save user info to localStorage and update UI
             localStorage.setItem('user', JSON.stringify(user));
+            window.location.reload();
         } else {
             console.error('Error saving user data:', data);
         }
     })
     .catch(error => console.error('Error:', error));
+
 }
 
 
@@ -58,10 +56,10 @@ function handleCredentialResponse(response) {
     const token = response.credential;
     const persistentUserData = parseJwt(token); // Decode JWT to extract user data
     user = persistentUserData;
-    console.log(user.name); // Debug: check if name is correctly parsed
-    console.log(user.email); // Debug: check if email is correctly parsed
-    document.getElementById("user_name").value = user.name;
-    document.getElementById("user_email").value = user.email;
+    console.log('24463563gggggggggggg');
+    
+    window.location.reload();
+
 }
 
 // Helper function to parse a JWT token and extract user data
@@ -117,7 +115,7 @@ function checkUserSignIn() {
 
         // Create and populate user info div
         userInfoDiv.innerHTML = `
-            <img src="${persistentUserData.picture}" referrerPolicy="no-referrer" alt="User Avatar" onError="this.onerror=null; this.src='media/googlelogo.png';" style="width: 32px; height: 32px; margin:0px; border-radius: 8.5px; "/>
+            <img src="${persistentUserData.picture}" referrerPolicy="no-referrer" alt="User Avatar" onError="this.onerror=null; this.src='media/googlelogo.png';" style="border-right: 1px solid grey; width: 32px; height: 32px; margin:0px; border-radius: 8.5px 0 0 8.5px; "/>
             <p style="margin:0px 10px;">${persistentUserData.name}</p>
         `;
         
