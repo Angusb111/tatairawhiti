@@ -30,9 +30,9 @@ p {
 }
 
 #comment-input {
-    background-color: var(--color);
-    border: none;
-    border-radius: 8px 0 0 8px;
+    background-color: var(--background);
+    border: 1px solid var(--text);
+    border-radius: 0;
     padding: 8px;
     color: var(--text);
 }
@@ -92,5 +92,9 @@ p {
     }
     .wiki-image {
         border-radius: 0;
+    }
+    .comment-submit-button {
+        background-color: var(--accent);
+        color: white;
     }
 }
