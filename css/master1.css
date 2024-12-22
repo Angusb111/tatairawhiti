@@ -570,6 +570,9 @@ a {
   .menu-box-inner {
     height: 100vh;
   }
+  .nav-logo {
+    padding: 10px 0px;
+  }
 
 }
 
@@ -621,10 +624,6 @@ a {
 
   .menu-button {
     margin-left: 10px;
-  }
-
-  .nav-logo {
-    padding: 10px 0px;
   }
 }
 

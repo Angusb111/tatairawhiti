@@ -1,14 +1,17 @@
 .wiki-page {
-    background-image: url(../media/fern.jpg);
+    background: var(--background);
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    font-family: dm_sans;
+    font-size: 0.9rem;
+}
+
+p {
+    margin: 0;
 }
 
 .info-section {
-    padding: 1rem;
     color: var(--text);
 }
 
@@ -41,6 +44,29 @@
 .comment {
     border-top: 1px solid grey;
     padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.comment-name-column {
+    padding-left: 10px;
+}
+
+.comment-name {
+    font-size: 16px;
+    margin: 0;
+
+}
+
+.comment-time {
+    font-size: 0.7rem;
+}
+
+.comment-top-row {
+    padding-bottom: 10px;
+}
+
+.comment-avatar {
+    border: 1px solid grey;
 }
 
 .info-wrapper {
@@ -50,9 +76,21 @@
     background-color: var(--background);
 }
 
+.wiki-image {
+    width: 100%;
+    border-radius: 0 0 18px 18px;
+}
+
+.wiki-external-map-link {
+    color: var(--text);
+}
+
 @media only screen and (max-width: 768px) {
     .info-wrapper {
         max-width: 100vw;
         padding-top: 56px;
+    }
+    .wiki-image {
+        border-radius: 0;
     }
 }
