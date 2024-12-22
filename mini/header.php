@@ -7,7 +7,7 @@
             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
           </svg>
         </button>
-        <a href="javascript:window.location.pathname = window.location.pathname.split('/').slice(0, -1).join('/');" class="nav-logo px-0 px-md-3 d-flex align-items-center m-0">
+        <a href="javascript:window.location.href = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/');" class="nav-logo px-0 px-md-3 d-flex align-items-center m-0">
           Discover Tairāwhiti
         </a>
 
