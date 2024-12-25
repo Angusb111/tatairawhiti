@@ -3,9 +3,9 @@ header('Content-Type: application/json');
 
 // Database credentials
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "poi_database";
+$username = "user";
+$password = "iott3";
+$dbname = "poi_database";           
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -393,7 +393,7 @@ a {
 .form-section {
   display: none;
   height: fit-content;
-  border: 1px solid magenta;
+
 }
 
 .form-section.active {

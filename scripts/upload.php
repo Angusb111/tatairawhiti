@@ -7,9 +7,9 @@ ini_set('display_errors', 1);
 
 // Database credentials
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "poi_database";
+$username = "user";
+$password = "iott3";
+$dbname = "poi_database";           
 
 // Define allowed file types and size limit
 $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
