@@ -259,7 +259,6 @@ a {
 .accent-btn {
   font-family: dm_sans;
   font-size: 14px;
-
   transition: 0.33s ease;
   border-radius: 0.33rem;
   z-index: 0; /* Set the z-index context */
@@ -572,6 +571,11 @@ a {
   }
   .nav-logo {
     padding: 10px 0px;
+  }
+
+  .accent-btn {
+    background-color: var(--accent);
+    color: white;
   }
 
 }
