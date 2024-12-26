@@ -43,24 +43,14 @@
             <div class="content px-5">
               <p><strong>Discover Tairāwhiti</strong> is a web application designed to help locals and tourists explore the hidden gems of the Tairāwhiti region. The platform allows users to discover and share points of interest, providing a crowd-sourced map of unique locations to explore.</p>
               
-              <h2>Features</h2>
-              <ul class="features-list">
-                <li><strong>Crowd-Sourced Knowledge:</strong> Users can submit points of interest to share with others in the region.</li>
-                <li><strong>Map Integration:</strong> Utilizes OpenStreetMap through Leaflet for interactive mapping.</li>
-              </ul>
-              
               <h2>Features in Progress</h2>
               <ul class="features-list">
                 <li>Image Submission</li>
-                <li>Dark Mode / Light Mode</li>
-                <li>Public Comments With Google 0Auth</li>
               </ul>
               
               <h2>Up-Next</h2>
               <ul class="features-list">
-                <li>Wiki Pages</li>
                 <li>Tags</li>
-                <li>Markers Revamp - with titles</li>
               </ul>
               
               <h2>Feedback</h2>
@@ -124,32 +114,37 @@
 
             <!-- Section 3: Category Selection -->
             <div class="form-section flex-column justify-content-center align-items-center text-center col-12 col-lg-6" id="section3">
-              <div class="d-flex flex-column my-4 form-input-container">
+              <div class="d-flex flex-column my-4 form-input-container align-items-center">
                 <p class="form-heading pb-3">Category</p>
-                <div class="d-flex flex-row category-selector-row justify-content-center">
-                  <!-- Nature Category -->
-                  <div class="d-flex flex-column align-items-center px-4 py-4 border rounded category-selector-item" data-category="1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-tree mt-2" viewBox="0 0 16 16">
-                      <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777zM6.437 4.758A.5.5 0 0 0 6 4.5h-.066L8 1.401 10.066 4.5H10a.5.5 0 0 0-.424.765L11.598 8.5H11.5a.5.5 0 0 0-.447.724L12.69 12.5H3.309l1.638-3.276A.5.5 0 0 0 4.5 8.5h-.098l2.022-3.235a.5.5 0 0 0 .013-.507"/>
-                    </svg>
-                    <p class="m-0 mt-1">Nature</p>
-                  </div>
-                  <!-- Monument Category -->
-                  <div class="d-flex flex-column align-items-center px-4 py-4 border rounded category-selector-item" data-category="2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" stroke="currentColor" class="bi bi-tree mt-2" viewBox="0 0 16 16">
-                      <path d="m 49.999999,962.7787 c 0,0 -10.793917,8.35041 -10.416667,12.49999 v 45.83331 h -8.333333 c -2.308375,0 -4.166667,1.8583 -4.166667,4.1666 v 8.3334 h -4.166666 c -2.308292,0 -4.166667,1.8583 -4.166667,4.1666 v 4.1667 H 81.25 v -4.1667 c 0,-2.3083 -1.858376,-4.1666 -4.166667,-4.1666 h -4.166667 v -8.3334 c 0,-2.3083 -1.858292,-4.1666 -4.166667,-4.1666 h -8.333333 v -45.83331 c 0,-4.16666 -10.416667,-12.49999 -10.416667,-12.49999 z" 
-                            transform="matrix(0.18633051,0,0,0.18632812,-1.3165219,-178.69338)" 
-                            style="fill:none;fill-opacity:1;stroke-width:5.37529374;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:round"/>
-                  </svg>
 
-                    <p class="m-0 mt-1">Monument</p>
-                  </div>
-                  <!-- Historic Site Category -->
-                  <div class="d-flex flex-column align-items-center px-4 py-4 border rounded category-selector-item" data-category="0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-hourglass-split mt-2" viewBox="0 0 16 16">
-                      <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.5 0 .5 1h6c0-1 .5-1 .5-1a3.5 3.5 0 0 0-2.989-3.158C8.478 9.586 8 9.051 8 8.35z"/>
+                <div class="d-flex flex-column justify-content-center">
+
+                  <div class="d-flex flex-wrap category-selector-row justify-content-start flex-shrink-1">
+                    
+                    <!-- Nature Category -->
+                    <div class="d-flex flex-column align-items-center px-4 py-4 border rounded category-selector-item" data-category="1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-tree mt-2" viewBox="0 0 16 16">
+                        <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777zM6.437 4.758A.5.5 0 0 0 6 4.5h-.066L8 1.401 10.066 4.5H10a.5.5 0 0 0-.424.765L11.598 8.5H11.5a.5.5 0 0 0-.447.724L12.69 12.5H3.309l1.638-3.276A.5.5 0 0 0 4.5 8.5h-.098l2.022-3.235a.5.5 0 0 0 .013-.507"/>
+                      </svg>
+                      <p class="m-0 mt-1">Nature</p>
+                    </div>
+                    
+                    <!-- Monument Category -->
+                    <div class="d-flex flex-column align-items-center px-4 py-4 border rounded category-selector-item" data-category="2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" stroke="currentColor" class="bi bi-tree mt-2" viewBox="0 0 16 16">
+                        <path d="m 49.999999,962.7787 c 0,0 -10.793917,8.35041 -10.416667,12.49999 v 45.83331 h -8.333333 c -2.308375,0 -4.166667,1.8583 -4.166667,4.1666 v 8.3334 h -4.166666 c -2.308292,0 -4.166667,1.8583 -4.166667,4.1666 v 4.1667 H 81.25 v -4.1667 c 0,-2.3083 -1.858376,-4.1666 -4.166667,-4.1666 h -4.166667 v -8.3334 c 0,-2.3083 -1.858292,-4.1666 -4.166667,-4.1666 h -8.333333 v -45.83331 c 0,-4.16666 -10.416667,-12.49999 -10.416667,-12.49999 z" transform="matrix(0.18633051,0,0,0.18632812,-1.3165219,-178.69338)" style="fill:none;fill-opacity:1;stroke-width:5.37529374;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:round"/>
                     </svg>
-                    <p class="m-0 mt-1">Historic Site</p>
+                      <p class="m-0 mt-1">Monument</p>
+                    </div>
+                    
+                    <!-- Historic Site Category -->
+                    <div class="d-flex flex-column align-items-center px-4 py-4 border rounded category-selector-item" data-category="0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-hourglass-split mt-2" viewBox="0 0 16 16">
+                        <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.5 0 .5 1h6c0-1 .5-1 .5-1a3.5 3.5 0 0 0-2.989-3.158C8.478 9.586 8 9.051 8 8.35z"/>
+                      </svg>
+                      <p class="m-0 mt-1">Historic Site</p>
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -160,20 +155,54 @@
               </button>
             </div>
 
-            <!-- Section 4: Image Upload -->
-            <div class="form-section flex-column justify-content-center align-items-center text-center col-12 col-lg-6" id="section4">
-              <div class="d-flex flex-column my-4 form-input-container">
-                <p class="form-heading pb-3">Upload Image</p>
-                <div class="input-wrapper">
-                  <input type="file" class="form-input text-center" id="PlaceImageInput" name="placeImage" accept="image/*" required>
-                </div>
-              </div>
-              <button type="submit" class="form-next-button" id="savePlaceBtn">
-                <div class="d-flex flex-direction-row align-items-center">
-                  Save changes
-                </div>
-              </button>
-            </div>
+<!-- Section 4: Image Upload -->
+<div class="form-section flex-column justify-content-center align-items-center text-center col-12 col-lg-6" id="section4">
+  <div class="d-flex flex-column my-4 form-input-container">
+    <p class="form-heading pb-3">Upload Image</p>
+    <div class="input-wrapper">
+      <input 
+        type="file" 
+        class="form-input text-center" 
+        id="PlaceImageInput" 
+        name="placeImage" 
+        accept="image/*" 
+        required 
+        onchange="showImagePreview(event)">
+    </div>
+    <!-- Preview container -->
+    <div class="image-preview mt-3" id="imagePreviewContainer" style="display: none;">
+      <img id="imagePreview" src="#" alt="Selected Image Preview" style="max-width: 100%; max-height: 300px; border: 1px solid #ddd; padding: 10px;"/>
+    </div>
+  </div>
+  <button type="submit" class="form-next-button" id="savePlaceBtn">
+    <div class="d-flex flex-direction-row align-items-center">
+      Save changes
+    </div>
+  </button>
+</div>
+
+<script>
+  function showImagePreview(event) {
+    const fileInput = event.target;
+    const previewContainer = document.getElementById('imagePreviewContainer');
+    const previewImage = document.getElementById('imagePreview');
+    
+    if (fileInput.files && fileInput.files[0]) {
+      const reader = new FileReader();
+      
+      reader.onload = function (e) {
+        previewImage.src = e.target.result; // Set the image source to the file
+        previewContainer.style.display = 'block'; // Show the preview container
+      };
+      
+      reader.readAsDataURL(fileInput.files[0]); // Read the file as a data URL
+    } else {
+      previewImage.src = "#";
+      previewContainer.style.display = 'none'; // Hide the preview container if no file is selected
+    }
+  }
+</script>
+
             <input type="hidden" id="PlaceLatitudeInput" name="latitude">
             <input type="hidden" id="PlaceLongitudeInput" name="longitude">
           </form>
@@ -399,8 +428,8 @@
     marker.bindPopup(popupContent, {
         className: 'marker-card',
         autoPan: true,
-        autoPanPaddingTopLeft: L.point(20, 60),
-        autoPanPaddingBottomRight: L.point(20, 20)
+        autoPanPaddingTopLeft: L.point(20, 100),
+        autoPanPaddingBottomRight: L.point(20, 100)
     });
 });
 
