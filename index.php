@@ -52,9 +52,6 @@
               <ul class="features-list">
                 <li>Tags</li>
               </ul>
-              
-              <h2>Feedback</h2>
-              <p>For now, you cannot submit feedback. In future versions, it will be accessible through a dedicated menu option.</p>
             </div>
           </div>
         </div>

@@ -56,7 +56,7 @@ function handleCredentialResponse(response) {
     const token = response.credential;
     const persistentUserData = parseJwt(token); // Decode JWT to extract user data
     user = persistentUserData;
-    console.log('24463563gggggggggggg');
+    console.log('login detect');
     
     window.location.reload();
 
