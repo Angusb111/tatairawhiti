@@ -118,8 +118,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
     <div class="comment-section d-flex flex-column flex-grow justify-content-center">
         
         <form method="POST" class="d-flex">
-            <input type="text" id="user_name" name="user_name">
-            <input type="text" id="user_email" name="user_email">
+            <input type="text" id="25hbk4" name="user_name">
+            <input type="text" id="ru64er" name="user_email">
             <textarea id="comment-input" class="flex-grow-1" name="comment" placeholder="Write your comment..." required></textarea><br>
             <button type="submit" class="comment-submit-button p-2 accent-btn bg-button border-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="">
@@ -135,11 +135,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
 
     // Check if the user object exists and has the required properties
     if (user) {
-        document.getElementById('user_name').value = user.name;
-        document.getElementById('user_email').value = user.email;
+        document.getElementById('25hbk4').value = user.name;
+        document.getElementById('ru64er').value = user.email;
     } else {
         console.error("User data not found in localStorage.");
     }
+    
 </script>
         <?php
 // Fetch and display comments for this POI
