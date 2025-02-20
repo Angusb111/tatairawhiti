@@ -91,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
 </head>
 <body class="wiki-page">
 <?php include 'mini/header.php'; ?>
+<?php include 'mini/about.php'; ?>
 <div class="info-wrapper">
     <img class="wiki-image"></img>
     
@@ -206,5 +207,6 @@ $conn->close();
 </div>
 </body>
 <script src="js/theme.js"></script>
+<script src="js/togglemaplayer.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </html>

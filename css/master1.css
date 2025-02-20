@@ -429,7 +429,7 @@ a {
 /* Style only the switch input elements */
 .switch {
   position: relative;
-  width: 60px;
+  width: 100px;
   height: 25px!important;
 }
 
@@ -473,7 +473,7 @@ a {
 }
 
 .switch-input:checked + .slider:before {
-  transform: translateX(36px);
+  transform: translateX(76px);
 }
 
 .settings-bar {
@@ -550,10 +550,12 @@ a {
   color: var(--accent);
 }
 
-#feedbackModal * {
+#feedbackModal *, #aboutModal * {
   font-family: dm_sans!important;
   max-width: 768px;
 }
+
+
 
 #feedback-form button {
   width: fit-content;

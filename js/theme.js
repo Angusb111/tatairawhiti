@@ -1,50 +1,56 @@
-// Initialize colorTheme in localStorage if not already set
+// Initialize colorTheme and mapLayer in localStorage if not already set
 if (!localStorage.getItem('colorTheme')) {
-    localStorage.setItem('colorTheme', 'light');
-  }
+  localStorage.setItem('colorTheme', 'light');
+}
+if (!localStorage.getItem('mapLayer')) {
+  localStorage.setItem('mapLayer', 'map');
+}
 
-document.getElementById('toggle').addEventListener('change', function() {
-    if (this.checked) { //set darkmode
+// Dark Mode Toggle
+document.getElementById('darkModeToggle').addEventListener('change', function() {
+  if (this.checked) { 
       localStorage.setItem('colorTheme', 'dark');
       changeColors('dark');
-    } else { //set lightmode
+  } else { 
       localStorage.setItem('colorTheme', 'light');
       changeColors('light');
-    }
-  });
+  }
+});
 
 function changeColors(newTheme) {
-if (newTheme == 'dark') { //darkmode
-    $('.leaflet-container').css('background-color', 'rgb(23, 58, 77)');
-    $('.leaflet-tile-pane').addClass('dark-map');
-    $('body').css('--background', 'rgb(24, 26, 37)');
-    $('body').css('--text', 'rgb(233, 233, 233)');
-    $('body').css('--color', 'rgb(48, 52, 75)');
-} else { //lightmode
-    $('.leaflet-container').css('background-color', 'rgb(170, 211, 223)');
-    $('.leaflet-tile-pane').removeClass('dark-map');
-    $('body').css('--background', 'rgb(255, 250, 250)');
-    $('body').css('--text', 'rgb(0, 0, 0)');
-    $('body').css('--color', 'rgb(220, 227, 230)');
-}
+  if (newTheme === 'dark') {
+      $('.leaflet-container').css('background-color', 'rgb(23, 58, 77)');
+      $('body').css('--background', 'rgb(24, 26, 37)');
+      $('body').css('--text', 'rgb(233, 233, 233)');
+      $('body').css('--color', 'rgb(48, 52, 75)');
+      if (localStorage.getItem('mapLayer') == 'map'){
+        $('.leaflet-tile-pane').addClass('dark-map');
+      } else {
+        // do nothing..
+      }
+  } else {
+      $('.leaflet-container').css('background-color', 'rgb(170, 211, 223)');
+      $('body').css('--background', 'rgb(255, 250, 250)');
+      $('body').css('--text', 'rgb(0, 0, 0)');
+      $('body').css('--color', 'rgb(220, 227, 230)');
+      if (localStorage.getItem('mapLayer') == 'map'){
+        $('.leaflet-tile-pane').removeClass('dark-map');
+      } else {
+        // do nothing..
+      }
+  }
 }
 
-function setInitialColorTheme() {
-savedColorTheme = localStorage.getItem('colorTheme');
-changeColors(savedColorTheme);
-}
+function setInitialStates() {
+  const savedColorTheme = localStorage.getItem('colorTheme');
+  const savedMapLayer = localStorage.getItem('mapLayer');
 
-function initThemeSwitch(theme) {
-const switchElement = document.getElementById('toggle');
-switchElement.checked = !switchElement.checked; // Toggle the checked state
-if (savedColorTheme == 'dark') {
-    switchElement.checked = true;
-} else {
-    switchElement.checked = false;
-}
+  changeColors(savedColorTheme);
+
+  document.getElementById('darkModeToggle').checked = savedColorTheme === 'dark';
+  document.getElementById('mapLayerToggle').checked = savedMapLayer === 'sat';
 }
 
 $(document).ready(function() {
-setInitialColorTheme();
-initThemeSwitch();
+  setInitialStates();
 });

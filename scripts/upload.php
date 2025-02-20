@@ -1,4 +1,6 @@
 <?php
+print_r($_FILES);
+
 header('Content-Type: application/json');
 
 // Enable error reporting for debugging
@@ -12,18 +14,28 @@ $password = "iott3";
 $dbname = "poi_database";           
 
 // Define allowed file types and size limit
-$allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+$allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
 $maxFileSize = 8 * 1024 * 1024; // 8MB
 
 $response = ['success' => false, 'message' => ''];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize and validate input fields
-    $placeName = filter_input(INPUT_POST, 'placeName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $placeDescription = filter_input(INPUT_POST, 'placeDescription', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $placeCategory = filter_input(INPUT_POST, 'placeCategory', FILTER_SANITIZE_NUMBER_INT);
-    $latitude = filter_input(INPUT_POST, 'latitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $longitude = filter_input(INPUT_POST, 'longitude', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    // Decode the JSON-encoded place data from the FormData (which was added as 'placeData')
+    $placeData = json_decode($_POST['placeData'], true);
+
+    // Ensure placeData is properly decoded
+    if (!$placeData) {
+        $response['message'] = 'Error: Invalid place data.';
+        echo json_encode($response);
+        exit;
+    }
+
+    // Extract values from placeData array
+    $placeName = filter_var($placeData['placeName'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $placeDescription = filter_var($placeData['placeDescription'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $placeCategory = $placeData['placeCategory'];  // From the sub-array (placeData)
+    $latitude = $placeData['latitude'];            // From the sub-array (placeData)
+    $longitude = $placeData['longitude'];          // From the sub-array (placeData)
 
     if (isset($_FILES['placeImage']) && $_FILES['placeImage']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['placeImage']['tmp_name'];
@@ -100,4 +112,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 echo json_encode($response);
-?>
