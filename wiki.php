@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
         </form>
         <h2 class="pb-3 pt-5">Kōrero</h2>
         <div id="comments-list">
-        <script>console.log(user.email);</script>
+        <script>console.log(localStorage.getItem(user.email));</script>
         <?php
 // Fetch and display comments for this POI
 $conn = new mysqli($servername, $username, $password, $dbname);
