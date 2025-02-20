@@ -129,7 +129,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
         </form>
         <h2 class="pb-3 pt-5">Kōrero</h2>
         <div id="comments-list">
-        <script>console.log(localStorage.getItem(user.email));</script>
+        <script>
+            // Retrieve the user data from localStorage
+            const user = JSON.parse(localStorage.getItem('user'));
+
+            // Check if the user object exists and has the required properties
+            if (user) {
+                const fullName = user.name; // Full name is in the 'name' property
+                const email = user.email;   // Email is in the 'email' property
+
+                // Log the full name and email to the console
+                console.log("Full Name:", fullName);
+                console.log("Email:", email);
+            } else {
+                console.error("User data not found in localStorage.");
+            }
+        </script>
         <?php
 // Fetch and display comments for this POI
 $conn = new mysqli($servername, $username, $password, $dbname);
