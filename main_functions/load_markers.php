@@ -43,23 +43,25 @@
 
       var mapContainer = document.getElementById('map');
 
-      var tile_sat = 'https://basemaps.linz.govt.nz/v1/tiles/aerial/WebMercatorQuad/{z}/{x}/{y}.webp?api=c01jkfz3t3gfvz9q6wnsqqyydw4'; // Satellite Tiles
-      var tile_map = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; // Map Tiles
-
-      if (localStorage.getItem('mapLayer') == 'sat') {
-        var currentTileType = tile_sat;
-      } else {
-        var currentTileType = tile_map;
+      function loadTiles() {
+        if (localStorage.getItem('mapLayer') == 'sat') {
+          var currentLayer = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+            maxZoom: 20,
+            subdomains:['mt0','mt1','mt2','mt3'],
+          attribution: `<p class="attribution-text">Map Data ©2025 Google</p>`
+        }).addTo(map);
+        } else {
+          var currentLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 18,
+          attribution: `
+            <button type="button" class="attribution-button" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
+              Attributions
+            </button>`
+        }).addTo(map);
+        }
       }
-
-      // Create the tile layer from localStorage
-      var currentLayer = L.tileLayer(currentTileType, {
-        maxZoom: 18,
-        attribution: `
-          <button type="button" class="attribution-button" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
-            Attributions
-          </button>`
-      }).addTo(map);
+      
+      loadTiles();
 
       var zoomControl = L.control.zoom({
         position: 'bottomleft'

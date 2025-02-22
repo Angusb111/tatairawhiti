@@ -57,7 +57,7 @@
           </div>
 
           <div class="d-flex flex-row justify-content-evenly menu-main-button py-4 px-5">
-            Map Layer
+            Sattelite View
             <div class="switch">
               <input type="checkbox" id="mapLayerToggle" class="switch-input"/>
               <label for="mapLayerToggle" class="slider"></label>

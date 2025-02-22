@@ -19,24 +19,26 @@ document.getElementById('darkModeToggle').addEventListener('change', function() 
 
 function changeColors(newTheme) {
   if (newTheme === 'dark') {
-      $('.leaflet-container').css('background-color', 'rgb(23, 58, 77)');
       $('body').css('--background', 'rgb(24, 26, 37)');
       $('body').css('--text', 'rgb(233, 233, 233)');
       $('body').css('--color', 'rgb(48, 52, 75)');
-      if (localStorage.getItem('mapLayer') == 'map'){
-        $('.leaflet-tile-pane').addClass('dark-map');
-      } else {
-        // do nothing..
+      if (localStorage.getItem('mapLayer') == 'map'){ //map
+        $('.leaflet-tile-pane').addClass('dark-map'); //map dark background
+        $('.leaflet-container').css('background-color', 'rgb(23, 58, 77)');
+      } else { //sat
+        $('.leaflet-tile-pane').removeClass('dark-map');
+        $('.leaflet-container').css('background-color', '#141f35'); //sat background
       }
   } else {
-      $('.leaflet-container').css('background-color', 'rgb(170, 211, 223)');
       $('body').css('--background', 'rgb(255, 250, 250)');
       $('body').css('--text', 'rgb(0, 0, 0)');
       $('body').css('--color', 'rgb(220, 227, 230)');
-      if (localStorage.getItem('mapLayer') == 'map'){
+      if (localStorage.getItem('mapLayer') == 'map'){ //map
         $('.leaflet-tile-pane').removeClass('dark-map');
-      } else {
-        // do nothing..
+        $('.leaflet-container').css('background-color', 'rgb(170, 211, 223)'); //map light background
+      } else { //sat
+        $('.leaflet-tile-pane').removeClass('dark-map');
+        $('.leaflet-container').css('background-color', '#141f35'); //sat background
       }
   }
 }

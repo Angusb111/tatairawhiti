@@ -408,6 +408,13 @@ a {
 
 .leaflet-control-attribution {
   background: var(--background)!important;
+  display: flex;
+  flex-direction: row;
+}
+
+.leaflet-control-attribution a, .leaflet-control-attribution p {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .attribution-button {
@@ -415,6 +422,11 @@ a {
   background: none;
   color: var(--secondary);
   text-decoration: underline;
+}
+
+.attribution-text {
+  color: var(--text);
+  margin-bottom: 0;
 }
 
 .leaflet-control-zoom a {
