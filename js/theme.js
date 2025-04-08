@@ -21,6 +21,7 @@ function changeColors(newTheme) {
   if (newTheme === 'dark') {
       $('body').css('--background', 'rgb(24, 26, 37)');
       $('body').css('--text', 'rgb(233, 233, 233)');
+      $('body').css('--text-inv', 'rgb(0, 0, 0)');
       $('body').css('--color', 'rgb(48, 52, 75)');
       if (localStorage.getItem('mapLayer') == 'map'){ //map
         $('.leaflet-tile-pane').addClass('dark-map'); //map dark background
@@ -32,6 +33,7 @@ function changeColors(newTheme) {
   } else {
       $('body').css('--background', 'rgb(255, 250, 250)');
       $('body').css('--text', 'rgb(0, 0, 0)');
+      $('body').css('--text-inv', 'rgb(233, 233, 233)');
       $('body').css('--color', 'rgb(220, 227, 230)');
       if (localStorage.getItem('mapLayer') == 'map'){ //map
         $('.leaflet-tile-pane').removeClass('dark-map');

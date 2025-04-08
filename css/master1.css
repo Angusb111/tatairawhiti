@@ -1,7 +1,8 @@
 :root {
   --main: #e6ddd3;  /*#;F2EBE3 */
   --dark: #F2EBE3;  /*#;094074 */
-  --text: rgb(255, 255, 255);
+  --text: rgb(233, 233, 233);
+  --text-inv: rgb(0, 0, 0);
   --background: rgb(255, 250, 250);
   --primary: rgb(219, 226, 233);
   --secondary: rgb(64, 141, 242);
@@ -576,6 +577,24 @@ a {
 #feedback-form textarea {
   width: 100%;
   height: 10rem;
+}
+
+.wiki-share-button svg {
+  transform: translateX(-1px);
+}
+
+.wiki-inline-button {
+  background-color: var(--text);
+  border-radius: 50%;
+  border: none;
+  padding: 8px;
+  color: var(--text-inv);
+}
+
+.navigate-modal-dialog {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100vw;
 }
 
 @media only screen and (max-width: 768px) {

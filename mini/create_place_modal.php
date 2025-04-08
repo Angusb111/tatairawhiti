@@ -74,7 +74,19 @@
                       </svg>
                       <p class="m-0 mt-1">Historic Site</p>
                     </div>
+                    <input type="hidden" id="PlaceCategoryInput" name="category">
+                    <script>
+                      document.querySelectorAll('.category-selector-item').forEach(item => {
+                          item.addEventListener('click', () => {
+                              const category = item.getAttribute('data-category');
+                              document.getElementById('PlaceCategoryInput').value = category;
 
+                              // Highlight selected category
+                              document.querySelectorAll('.category-selector-item').forEach(i => i.classList.remove('selected'));
+                              item.classList.add('selected');
+                          });
+                      });
+                    </script>
                   </div>
                 </div>
               </div>
@@ -144,74 +156,106 @@
 
 
 <script>
-  $(document).ready(function () {
-    // Handle section transitions
-    $('#nextToSection2').click(function () {
-      $('#section1').removeClass('active').fadeOut(function () {
-        $('#section2').addClass('active').fadeIn();
-      });
+$(document).ready(function () {
+  // Handle section transitions (unchanged)
+  $('#nextToSection2').click(function () {
+    $('#section1').removeClass('active').fadeOut(function () {
+      $('#section2').addClass('active').fadeIn();
     });
-
-    $('#nextToSection3').click(function () {
-      $('#section2').removeClass('active').fadeOut(function () {
-        $('#section3').addClass('active').fadeIn();
-      });
-    });
-
-    $('#nextToSection4').click(function () {
-      $('#section3').removeClass('active').fadeOut(function () {
-        $('#section4').addClass('active').fadeIn();
-      });
-    });
-
-    // Handle category selection
-    $('.category-selector-item').click(function () {
-      $('.category-selector-item').removeClass('selected');
-      $(this).addClass('selected');
-      // Save the selected category to a hidden input or a variable if needed
-      var selectedCategory = $(this).data('category');
-      $('#selectedCategoryInput').val(selectedCategory);
-    });
-
-    $('#savePlaceBtn').click(function (e) {
-      e.preventDefault();
-      var formData = new FormData($('form')[0]);
-
-      // Create an object for all form data, including place name, description, coordinates, and category
-      var placeData = {
-        placeName: $('#PlaceNameInput').val(),
-        placeDescription: $('#PlaceDescriptionInput').val(),
-        latitude: $('#PlaceLatitudeInput').val(),
-        longitude: $('#PlaceLongitudeInput').val(),
-        placeCategory: $('.category-selector-item.selected').data('category')
-      };
-
-      // Append the placeData object as a JSON string for server-side parsing
-      formData.append('placeData', JSON.stringify(placeData));
-
-      $.ajax({
-        url: 'scripts/upload.php', // Replace with your server endpoint
-        method: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          console.log(response); // Log the response for debugging
-          if (response.success) {
-            $('form')[0].reset();
-            $('.category-selector-item').removeClass('selected'); // Reset category selection
-            $('#createMarkerModal').modal('hide');
-          } else {
-            alert('Error: ' + response.message);
-          }
-        },
-        error: function (error) {
-          console.log(error); // Log the error for debugging
-          alert('Failed to save place. Please try again.');
-        }
-      });
-    });
-
-
   });
+
+  $('#nextToSection3').click(function () {
+    $('#section2').removeClass('active').fadeOut(function () {
+      $('#section3').addClass('active').fadeIn();
+    });
+  });
+
+  $('#nextToSection4').click(function () {
+    $('#section3').removeClass('active').fadeOut(function () {
+      $('#section4').addClass('active').fadeIn();
+    });
+  });
+
+  // Handle category selection (unchanged)
+  $('.category-selector-item').click(function () {
+    $('.category-selector-item').removeClass('selected');
+    $(this).addClass('selected');
+
+    // Save the selected category to the hidden input
+    var selectedCategory = $(this).data('category');
+    $('#PlaceCategoryInput').val(selectedCategory);
+  });
+
+  // Handle form submission
+  $('#savePlaceBtn').click(function (e) {
+    e.preventDefault();
+
+    // Validate required fields
+    if (!$('#PlaceNameInput').val()) {
+      alert('Please enter a place name.');
+      return;
+    }
+    if (!$('#PlaceDescriptionInput').val()) {
+      alert('Please enter a description.');
+      return;
+    }
+    if (!$('#PlaceLatitudeInput').val() || !$('#PlaceLongitudeInput').val()) {
+      alert('Please set the coordinates.');
+      return;
+    }
+    if (!$('.category-selector-item.selected').length) {
+      alert('Please select a category.');
+      return;
+    }
+
+    // Clear FormData by creating a new instance
+    var formData = new FormData();
+
+    // Append form fields manually with backend-compatible names
+    formData.append('name', $('#PlaceNameInput').val()); // Renamed to 'name'
+    formData.append('description', $('#PlaceDescriptionInput').val()); // Renamed to 'description'
+    formData.append('latitude', $('#PlaceLatitudeInput').val());
+    formData.append('longitude', $('#PlaceLongitudeInput').val());
+    formData.append('category', $('#PlaceCategoryInput').val());
+
+    // Append the uploaded file (if any)
+    var fileInput = $('#PlaceImageInput')[0];
+    if (fileInput.files.length > 0) {
+      formData.append('image', fileInput.files[0]);
+    } else {
+      alert('Please upload an image.');
+      return;
+    }
+
+    // Log FormData for debugging
+    console.log('FormData contents:');
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ': ' + pair[1]);
+    }
+
+    // Send AJAX request
+    $.ajax({
+      url: 'scripts/upload.php', // Replace with your server endpoint
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        console.log(response); // Log the response for debugging
+        if (response.success) {
+          alert('Place saved successfully!');
+          $('form')[0].reset(); // Reset the form
+          $('.category-selector-item').removeClass('selected'); // Reset category selection
+          $('#createMarkerModal').modal('hide'); // Close the modal
+        } else {
+          alert('Error: ' + response.message);
+        }
+      },
+      error: function (error) {
+        console.error(error); // Log the error for debugging
+        alert('Failed to save place. Please try again.');
+      }
+    });
+  });
+});
 </script>

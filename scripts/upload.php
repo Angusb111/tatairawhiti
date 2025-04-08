@@ -1,6 +1,4 @@
 <?php
-print_r($_FILES);
-
 header('Content-Type: application/json');
 
 // Enable error reporting for debugging
@@ -11,104 +9,109 @@ ini_set('display_errors', 1);
 $servername = "localhost";
 $username = "user";
 $password = "iott3";
-$dbname = "poi_database";           
+$dbname = "poi_database";
 
-// Define allowed file types and size limit
-$allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
-$maxFileSize = 8 * 1024 * 1024; // 8MB
+$response = ['success' => false, 'message' => '', 'postData' => $_POST, 'filesData' => $_FILES];
 
-$response = ['success' => false, 'message' => ''];
+// Debugging: Log all received data
+file_put_contents('debug.log', print_r($_POST, true) . "\n\n" . print_r($_FILES, true), FILE_APPEND);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Decode the JSON-encoded place data from the FormData (which was added as 'placeData')
-    $placeData = json_decode($_POST['placeData'], true);
+// Check if the request method is POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    $response['message'] = "Invalid request method.";
+    echo json_encode($response);
+    exit;
+}
 
-    // Ensure placeData is properly decoded
-    if (!$placeData) {
-        $response['message'] = 'Error: Invalid place data.';
+// Collect form data
+$category = isset($_POST['category']) ? intval($_POST['category']) : null;
+$name = isset($_POST['name']) ? trim($_POST['name']) : '';
+$latitude = isset($_POST['latitude']) ? floatval($_POST['latitude']) : null;
+$longitude = isset($_POST['longitude']) ? floatval($_POST['longitude']) : null;
+$description = isset($_POST['description']) ? trim($_POST['description']) : '';
+$website = isset($_POST['website']) ? trim($_POST['website']) : null;
+
+// Validate required fields
+if (empty($name) || empty($latitude) || empty($longitude) || empty($description) || is_null($category)) {
+    $response['message'] = "All required fields must be filled.";
+    echo json_encode($response);
+    exit;
+}
+
+// Handle file upload
+$imagePath = 'placeholder.jpg'; // Default value
+if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    // Validate file type and size
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    $maxSize = 5 * 1024 * 1024; // 5MB
+    $file = $_FILES['image'];
+
+    if (!in_array($file['type'], $allowedTypes)) {
+        $response['message'] = "Invalid file type. Only JPEG, PNG, and GIF are allowed.";
         echo json_encode($response);
         exit;
     }
 
-    // Extract values from placeData array
-    $placeName = filter_var($placeData['placeName'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $placeDescription = filter_var($placeData['placeDescription'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $placeCategory = $placeData['placeCategory'];  // From the sub-array (placeData)
-    $latitude = $placeData['latitude'];            // From the sub-array (placeData)
-    $longitude = $placeData['longitude'];          // From the sub-array (placeData)
-
-    if (isset($_FILES['placeImage']) && $_FILES['placeImage']['error'] === UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['placeImage']['tmp_name'];
-        $fileName = $_FILES['placeImage']['name'];
-        $fileSize = $_FILES['placeImage']['size'];
-        $fileType = $_FILES['placeImage']['type'];
-
-        // Check file size
-        if ($fileSize > $maxFileSize) {
-            $response['message'] = 'Error: File size exceeds the maximum limit of 8MB.';
-            echo json_encode($response);
-            exit;
-        }
-
-        // Check file type
-        if (!in_array($fileType, $allowedTypes)) {
-            $response['message'] = 'Error: Only JPEG, PNG, and GIF files are allowed.';
-            echo json_encode($response);
-            exit;
-        }
-
-        // Define the upload directory
-        $uploadFileDir = '../media/uploaded_images/';
-        if (!is_dir($uploadFileDir)) {
-            mkdir($uploadFileDir, 0755, true);
-        }
-
-        // Sanitize file name
-        $newFileName = md5(time() . $fileName) . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-        $destPath = $uploadFileDir . $newFileName;
-
-        // Move the file to the destination directory
-        if (move_uploaded_file($fileTmpPath, $destPath)) {
-            // File upload successful, now insert into database
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-            // Check connection
-            if ($conn->connect_error) {
-                $response['message'] = "Connection failed: " . $conn->connect_error;
-                echo json_encode($response);
-                exit;
-            }
-
-            // Prepare and bind
-            $stmt = $conn->prepare("INSERT INTO poi (category, name, latitude, longitude, description, image) VALUES (?, ?, ?, ?, ?, ?)");
-            if (!$stmt) {
-                $response['message'] = "Prepare failed: (" . $conn->errno . ") " . $conn->error;
-                echo json_encode($response);
-                exit;
-            }
-
-            $stmt->bind_param("dsddss", $placeCategory, $placeName, $latitude, $longitude, $placeDescription, $destPath);
-
-            // Execute the prepared statement
-            if ($stmt->execute()) {
-                $response['success'] = true;
-                $response['message'] = "New record created successfully";
-            } else {
-                $response['message'] = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-            }
-
-            // Close the statement and connection
-            $stmt->close();
-            $conn->close();
-        } else {
-            $response['message'] = 'Error: There was an error moving the uploaded file.';
-        }
-    } else {
-        $response['message'] = 'Error: No file uploaded or there was an upload error.';
+    if ($file['size'] > $maxSize) {
+        $response['message'] = "File size exceeds the limit of 5MB.";
+        echo json_encode($response);
+        exit;
     }
-} else {
-    $response['message'] = 'Error: Invalid request method.';
+
+    // Define upload directory
+    $uploadDir = __DIR__ . '/../media/uploaded_images/';
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true); // Create directory if it doesn't exist
+    }
+
+    // Generate unique file name
+    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $newFileName = uniqid('img_', true) . '.' . $extension;
+    $destPath = $uploadDir . $newFileName;
+
+    // Move uploaded file to destination
+    if (!move_uploaded_file($file['tmp_name'], $destPath)) {
+        $response['message'] = "Failed to move uploaded file.";
+        echo json_encode($response);
+        exit;
+    }
+
+    // Prepare relative path for database
+    $imagePath = '../media/uploaded_images/' . $newFileName;
 }
 
+// Connect to the database
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    $response['message'] = "Connection failed: " . $conn->connect_error;
+    echo json_encode($response);
+    exit;
+}
+
+// Insert data into the database
+$stmt = $conn->prepare("INSERT INTO poi (category, name, latitude, longitude, description, website, image) VALUES (?, ?, ?, ?, ?, ?, ?)");
+if (!$stmt) {
+    $response['message'] = "Database preparation failed: " . $conn->error;
+    echo json_encode($response);
+    $conn->close();
+    exit;
+}
+
+$stmt->bind_param("isddsss", $category, $name, $latitude, $longitude, $description, $website, $imagePath);
+
+if ($stmt->execute()) {
+    $response['success'] = true;
+    $response['message'] = "Place added successfully.";
+} else {
+    $response['message'] = "Database insertion failed: " . $stmt->error;
+}
+
+// Close resources
+$stmt->close();
+$conn->close();
+
+// Return response
 echo json_encode($response);
+?>
