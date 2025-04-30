@@ -1,1 +1,3 @@
 goog.html
+media/uploaded_files/*
+!media/uploaded_files/.gitkeep

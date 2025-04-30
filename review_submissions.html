@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Approve New Places</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .tabs-row {
+            display: flex;
+            gap: 4px;
+        }
+        p {
+            margin: 0;
+        }
+        .admin-tab {
+            background-color: white;
+            padding: 10px 20px;
+            margin: 0;
+            border-bottom: 8px solid #28a745;
+        }
+        .submission {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            width: fit-content;
+        }
+        .submission img {
+            max-width: 20%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .actions button {
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .actions .approve {
+            background-color: #28a745;
+            color: white;
+        }
+        .actions .reject {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard - Approve New Places</h1>
+    <div class="tabs-row">
+        <div class="admin-tab">
+            <p>Places</p>
+        </div>
+        <div class="admin-tab">
+            <p>Photos</p>
+        </div>
+        <div class="admin-tab">
+            <p>Edits</p>
+        </div>
+    </div>
+    <div>
+        
+            <div id="submissions-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Fetch pending submissions
+        async function fetchSubmissions() {
+            const response = await fetch('scripts/get_pending_submissions.php');
+            const submissions = await response.json();
+
+            const container = document.getElementById('submissions-container');
+            container.innerHTML = ''; // Clear previous submissions
+
+            if (submissions.error) {
+                container.innerHTML = `<p>Error: ${submissions.error}</p>`;
+                return;
+            }
+
+            submissions.forEach(submission => {
+                const submissionDiv = document.createElement('div');
+                submissionDiv.classList.add('submission');
+
+                submissionDiv.innerHTML = `
+                    <img src="media/${submission.image_url || 'placeholder.jpg'}" alt="${submission.name}">
+                    <h3>${submission.name}</h3>
+                    <p><Category: ${submission.category}</p>
+                    <p>Description: ${submission.description}</p>
+                    <p>Location: Latitude: ${submission.lat}, Longitude: ${submission.lng}</p>
+                    <div class="actions">
+                        <button class="approve" onclick="updateSubmission(${submission.id}, 'approve')">Approve</button>
+                        <button class="reject" onclick="updateSubmission(${submission.id}, 'reject')">Reject</button>
+                    </div>
+                `;
+
+                container.appendChild(submissionDiv);
+            });
+        }
+
+        // Update submission status
+        async function updateSubmission(id, action) {
+            console.log(action);
+            
+            const response = await fetch('scripts/update_submission_status.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, action })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert(`${action.charAt(0).toUpperCase() + action.slice(1)}d successfully!`);
+                fetchSubmissions(); // Refresh the list
+            } else {
+                alert(`Error: ${result.error}`);
+            }
+        }
+
+        // Load submissions on page load
+        fetchSubmissions();
+    </script>
+</body>
+</html>

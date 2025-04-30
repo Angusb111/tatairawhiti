@@ -98,20 +98,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
     <div class="info-section p-3">
 
     
-<div class="d-flex flex-direction-row justify-content-between wiki-top-bar mb-3">
-    <h1 class="info-title m-0"></h1>
-    <div class="d-flex flex-direction-row align-items-center gap-2 justify-content-end">
+<div class="d-flex flex-direction-row justify-content-between flex-wrap wiki-top-bar">
+    <h1 class="info-title m-0 mb-3"></h1>
+    <div class="d-flex flex-direction-row align-items-center flex-grow-1 gap-2 justify-content-end mb-3">
         <!-- Button to trigger the modal -->
-        <button class="d-flex justify-content-center align-items-center wiki-inline-button" data-bs-toggle="modal" data-bs-target="#externalMapModal">
+        <button class="d-flex justify-content-center align-items-center wiki-inline-button rounded-pill" data-bs-toggle="modal" data-bs-target="#externalMapModal">
+            <p>Navigate</p>
             <svg xmlns="http://www.w3.org/2000/svg" height="18px" width="18px" viewBox="0 -960 960 960" fill="currentColor">
                 <path d="m200-120-40-40 320-720 320 720-40 40-280-120-280 120Zm84-124 196-84 196 84-196-440-196 440Zm196-84Z"/>
             </svg>
         </button>
-        <button class="d-flex justify-content-center align-items-center wiki-inline-button wiki-share-button" data-bs-toggle="modal">
+
+        <script>
+        function sharePage() {
+            if (navigator.share) {
+            navigator.share({
+                title: document.title,
+                text: 'Check this out!',
+                url: window.location.href
+            })
+            .then(() => console.log('Shared successfully'))
+            .catch((error) => console.log('Sharing failed', error));
+            } else {
+            alert('Web Share not supported in this browser.');
+            }
+        }
+        </script>
+
+        <button onclick="sharePage()" class="d-flex justify-content-center align-items-center wiki-inline-button rounded-pill wiki-share-button" data-bs-toggle="modal">
+            <p>Share</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" height="18px" width="18px" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
             </svg>
-
         </button>
     </div>
 </div>
@@ -146,6 +164,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
         
     </div>
 
+
+                        <!-- MAIN WIKI SECTION -->
+
+
+    <div class="wiki-wrapper p-3">
+<?php
+// Fetch and display comments for this POI
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Modified query to join the comments and users tables
+$stmt = $conn->prepare("
+    SELECT 
+        ws.id AS section_id,
+        ws.section_title,
+        ws.content,
+        ws.`order`,
+        w.id AS wiki_id,
+        w.poi_id
+    FROM wiki_sections ws
+    JOIN wiki w ON ws.wiki_id = w.id
+    WHERE w.poi_id = ?
+    ORDER BY ws.`order` ASC;
+
+");
+$stmt->bind_param("i", $poiId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Check if there are any results
+if ($result->num_rows > 0) {
+    // Loop through the comments and display them
+    while ($section = $result->fetch_assoc()) {
+        $sectionTitle = $section['section_title']; // Get the avatar from the users table
+        $content = $section['content'];
+
+        echo '
+        <div class="wiki-section pb-3">
+            <div class="wiki-section-content">
+                <p class="section-title pb-2">' . $sectionTitle . '</p>
+                <p class="section-text ms-2">' . $content . '</p>
+            </div>
+        </div>';
+    }
+
+} else {
+    // If no wiki sections are found, display a message
+    echo '<p>No Wiki for this page yet :/</p>';
+}
+
+$stmt->close();
+$conn->close();
+?>
+
+    </div>
+
     <!-- Comment Section -->
     <div class="comment-section d-flex flex-column flex-grow justify-content-center">
         
@@ -174,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
     }
     
 </script>
-        <?php
+<?php
 // Fetch and display comments for this POI
 $conn = new mysqli($servername, $username, $password, $dbname);
 

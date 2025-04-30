@@ -6,6 +6,7 @@ document.getElementById('mapLayerToggle').addEventListener('change', function() 
     if (this.checked) { 
         localStorage.setItem('mapLayer', 'sat');
         $('.leaflet-tile-pane').removeClass('dark-map');
+        changeColors(localStorage.getItem('colorTheme'));
         loadTiles();
     } else { 
         localStorage.setItem('mapLayer', 'map');
@@ -14,6 +15,7 @@ document.getElementById('mapLayerToggle').addEventListener('change', function() 
         } else {
             $('.leaflet-tile-pane').removeClass('dark-map');
         }
+        changeColors(localStorage.getItem('colorTheme'));
         loadTiles();
     }
   });

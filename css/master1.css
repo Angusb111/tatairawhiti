@@ -11,12 +11,6 @@
 }
 
 @font-face {
-  font-family: "flighty";
-  src: url("../fonts/flighty.ttf");
-  font-display: swap;
-}
-
-@font-face {
   font-family: "dm_sans";
   src: url("../fonts/dm_sans.ttf");
   font-display: swap;
@@ -25,12 +19,6 @@
 @font-face {
   font-family: "dm_serif";
   src: url("../fonts/dm_serif.ttf");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "anonymous-pro";
-  src: url("../fonts/anonymous-pro.ttf");
   font-display: swap;
 }
 
@@ -568,8 +556,6 @@ a {
   max-width: 768px;
 }
 
-
-
 #feedback-form button {
   width: fit-content;
 }
@@ -585,10 +571,16 @@ a {
 
 .wiki-inline-button {
   background-color: var(--text);
-  border-radius: 50%;
   border: none;
   padding: 8px;
   color: var(--text-inv);
+}
+
+.wiki-inline-button p {
+  font-size: 0.7rem;
+  font-weight: light;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 
 .navigate-modal-dialog {
@@ -596,6 +588,16 @@ a {
   height: 100vh;
   width: 100vw;
 }
+
+.info-title {
+  font-size: 2.2rem;
+}
+
+.section-title {
+  font-family: dm_serif;
+  font-size: 1.4rem;
+}
+
 
 @media only screen and (max-width: 768px) {
 

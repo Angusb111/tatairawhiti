@@ -29,7 +29,6 @@ $name = isset($_POST['name']) ? trim($_POST['name']) : '';
 $latitude = isset($_POST['latitude']) ? floatval($_POST['latitude']) : null;
 $longitude = isset($_POST['longitude']) ? floatval($_POST['longitude']) : null;
 $description = isset($_POST['description']) ? trim($_POST['description']) : '';
-$website = isset($_POST['website']) ? trim($_POST['website']) : null;
 
 // Validate required fields
 if (empty($name) || empty($latitude) || empty($longitude) || empty($description) || is_null($category)) {
@@ -91,7 +90,7 @@ if ($conn->connect_error) {
 }
 
 // Insert data into the database
-$stmt = $conn->prepare("INSERT INTO poi (category, name, latitude, longitude, description, website, image) VALUES (?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO submissions (category, name, lat, lng, description, image_url) VALUES (?, ?, ?, ?, ?, ?)");
 if (!$stmt) {
     $response['message'] = "Database preparation failed: " . $conn->error;
     echo json_encode($response);
@@ -99,7 +98,7 @@ if (!$stmt) {
     exit;
 }
 
-$stmt->bind_param("isddsss", $category, $name, $latitude, $longitude, $description, $website, $imagePath);
+$stmt->bind_param("isddss", $category, $name, $latitude, $longitude, $description, $imagePath);
 
 if ($stmt->execute()) {
     $response['success'] = true;
