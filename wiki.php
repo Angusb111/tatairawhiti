@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Pacific/Auckland");
 // Database connection details
 $servername = "localhost";
 $username = "user";
@@ -74,10 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="js/googleauth.js"></script>
     <script src="js/buttonsinit.js"></script>
-    
     <script>
         const poiData = <?php echo json_encode($poi, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
-
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.info-title').textContent = poiData.name;
             document.querySelector('.info-description').innerHTML = poiData.description;
@@ -87,17 +86,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
             document.querySelector('#apple-maps-link').href = `https://maps.apple.com/?q=${poiData.latitude},${poiData.longitude}`;
         });
     </script>
-    
 </head>
 <body class="wiki-page">
 <?php include 'mini/header.php'; ?>
 <?php include 'mini/about.php'; ?>
 <div class="info-wrapper">
     <img class="wiki-image"></img>
-    
     <div class="info-section p-3">
-
-    
 <div class="d-flex flex-direction-row justify-content-between flex-wrap wiki-top-bar">
     <h1 class="info-title m-0 mb-3"></h1>
     <div class="d-flex flex-direction-row align-items-center flex-grow-1 gap-2 justify-content-end mb-3">
@@ -108,7 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
                 <path d="m200-120-40-40 320-720 320 720-40 40-280-120-280 120Zm84-124 196-84 196 84-196-440-196 440Zm196-84Z"/>
             </svg>
         </button>
-
         <script>
         function sharePage() {
             if (navigator.share) {
@@ -124,11 +118,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
             }
         }
         </script>
-
         <button onclick="sharePage()" class="d-flex justify-content-center align-items-center wiki-inline-button rounded-pill wiki-share-button" data-bs-toggle="modal">
             <p>Share</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" height="18px" width="18px" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+            </svg>
+        </button>
+        <button onclick="window.location.href = 'editor.php?p=<?php echo $poiId; ?>';" class="d-flex justify-content-center align-items-center wiki-inline-button rounded-pill wiki-share-button" data-bs-toggle="modal">
+            <p>Edit Page</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
             </svg>
         </button>
     </div>
@@ -158,22 +157,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
     </div>
 </div>
 
-
-
         <p class="info-description"></p>
         
     </div>
 
-
                         <!-- MAIN WIKI SECTION -->
-
 
     <div class="wiki-wrapper p-3">
 <?php
-// Fetch and display comments for this POI
+// GET WIKI SECTIONS
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-// Modified query to join the comments and users tables
 $stmt = $conn->prepare("
     SELECT 
         ws.id AS section_id,
@@ -188,6 +181,7 @@ $stmt = $conn->prepare("
     ORDER BY ws.`order` ASC;
 
 ");
+
 $stmt->bind_param("i", $poiId);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -273,14 +267,15 @@ if ($result->num_rows > 0) {
         $commentText = $comment['comment'];
 
         $timestampUnix = strtotime($timestamp);
-        $timestampUnix -= 43200; // CORRECTION- REMOVE LATER -12 hours
 
         $timeDiff = time() - $timestampUnix;
         // Calculate the "wordy" version of the timestamp
         if ($timeDiff < 60) {
             $timeAgo = "Just Now";
+        } elseif ($timeDiff < 120) {
+            $timeAgo = floor($timeDiff / 60) . " minute ago";
         } elseif ($timeDiff < 3600) {
-            $timeAgo = floor($timeDiff / 60) . "m ago";
+            $timeAgo = floor($timeDiff / 60) . " minutes ago";
         } elseif ($timeDiff < 86400) {
             $timeAgo = floor($timeDiff / 3600) . "h ago";
         } elseif ($timeDiff < 604800) {
@@ -290,7 +285,7 @@ if ($result->num_rows > 0) {
         } else {
             $timeAgo = floor($timeDiff / 31536000) . "y ago";
         }
-
+        
         echo '
         <div class="comment">
             <div class="content">

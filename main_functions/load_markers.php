@@ -38,7 +38,7 @@
         zoomControl: false,
         minZoom: 9,   // Minimum zoom level
         maxZoom: 18,  // Maximum zoom level
-        maxBounds: L.latLngBounds([[-39.3, 177.0], [-37, 178.9]])
+        maxBounds: L.latLngBounds([[-40, 177.0], [-36.5, 178.9]])
       }).setView([-38.66398800969844, 178.0225992971014], 13);
 
       var mapContainer = document.getElementById('map');

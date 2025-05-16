@@ -8,7 +8,7 @@
           </svg>
         </button>
         <a href="javascript:window.location.href = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/');" class="nav-logo px-0 px-md-3 d-flex align-items-center m-0">
-          Discover Tairāwhiti
+        Tairāwhiti Local
         </a>
 
         <div class="mobile-header-spacer"></div>

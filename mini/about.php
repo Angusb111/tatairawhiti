@@ -20,8 +20,6 @@
               
               <h2>Features in Progress</h2>
               <ul class="features-list">
-                <li>Image Submission</li>
-                <li>We-write sumbissions</li>
               </ul>
               
               <h2>Up-Next</h2>
